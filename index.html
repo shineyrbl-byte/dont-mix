@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Don't Mix</title>
+  <meta name="description" content="Check your cleaning products before you mix them or store them together. Works offline. Nothing leaves your phone." />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">🧪</span>
+      <div>
+        <h1>Don't Mix</h1>
+        <p class="tagline">Check cleaners before you mix or store them together.</p>
+      </div>
+    </div>
+    <button class="sos" id="sos-open" aria-haspopup="dialog">Already mixed something?</button>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" id="tab-mix" aria-controls="panel-mix" aria-selected="true">Check a mix</button>
+    <button role="tab" id="tab-label" aria-controls="panel-label" aria-selected="false" tabindex="-1">Read a label</button>
+    <button role="tab" id="tab-cupboard" aria-controls="panel-cupboard" aria-selected="false" tabindex="-1">My cupboard</button>
+  </nav>
+
+  <main id="main">
+    <!-- Check a mix -->
+    <section id="panel-mix" role="tabpanel" aria-labelledby="tab-mix">
+      <h2>What are you about to use together?</h2>
+      <p class="hint">Pick two or more. Brands differ, so check the hint against your label.</p>
+
+      <label class="search">
+        <span class="sr-only">Search products</span>
+        <input id="mix-search" type="search" placeholder="Search: bleach, vinegar, drain…" autocomplete="off" />
+      </label>
+      <div id="mix-options" class="options" role="group" aria-label="Products"></div>
+
+      <div class="selected-bar">
+        <span id="mix-count">Nothing picked yet</span>
+        <button class="link" id="mix-clear" hidden>Clear</button>
+      </div>
+
+      <div id="mix-result" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- Read a label -->
+    <section id="panel-label" role="tabpanel" aria-labelledby="tab-label" hidden>
+      <h2>Not sure what's in it?</h2>
+      <p class="hint">Type or paste the ingredients or warning text from the bottle. We look for chemical names and skip lines like "do not mix with bleach".</p>
+      <label for="label-name">Product name (optional)</label>
+      <input id="label-name" type="text" placeholder="e.g. Blue bathroom spray" />
+      <label for="label-text">Label text</label>
+      <textarea id="label-text" rows="5" placeholder="Contains: hydrochloric acid 9.5%, surfactants. Do not mix with bleach."></textarea>
+      <div class="row">
+        <button class="primary" id="label-read">Read label</button>
+        <button class="link" id="label-example">Try an example</button>
+      </div>
+      <div id="label-result" class="result" aria-live="polite"></div>
+    </section>
+
+    <!-- My cupboard -->
+    <section id="panel-cupboard" role="tabpanel" aria-labelledby="tab-cupboard" hidden>
+      <h2>What's under your sink?</h2>
+      <p class="hint">Add what you keep together. We check for leaks that could react and pairs you should never use one after another without rinsing. Saved only on this device.</p>
+      <label for="cup-add">Add a product</label>
+      <div class="row">
+        <select id="cup-add"></select>
+        <button class="primary" id="cup-add-btn">Add</button>
+      </div>
+      <ul id="cup-list" class="cup-list"></ul>
+      <div id="cup-result" class="result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="sos" aria-labelledby="sos-title">
+    <form method="dialog" class="sos-body">
+      <h2 id="sos-title">If you've already mixed chemicals</h2>
+      <ol class="steps">
+        <li><strong>Leave the room now.</strong> Take children and pets. Don't stay to clean up.</li>
+        <li><strong>Get fresh air.</strong> Go outside or to a room with open windows. Only open windows on your way out if you can do it without breathing the fumes.</li>
+        <li><strong>Don't add anything else</strong> to "neutralise" it. That can make more gas.</li>
+        <li><strong>Rinse skin or eyes</strong> with clean running water for 15 minutes. Take off splashed clothes.</li>
+        <li><strong>Get help</strong> if you have coughing, wheezing, chest tightness, trouble breathing, or burning eyes. Keep the bottles so you can read the labels to the doctor.</li>
+      </ol>
+      <div id="sos-numbers" class="numbers"></div>
+      <p class="fine">This is general first-aid guidance, not medical advice. If someone is struggling to breathe or unconscious, call emergency services first.</p>
+      <button class="primary" value="close">Close</button>
+    </form>
+  </dialog>
+
+  <footer class="foot">
+    <p>Runs entirely on your device. No accounts, no tracking, works offline.</p>
+    <p>Covers common household products only. It can't know every brand. When in doubt: use one product, rinse with water, then the other.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
