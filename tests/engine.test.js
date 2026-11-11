@@ -94,3 +94,51 @@ test("data: every product and rule uses real groups", () => {
   for (const prod of PRODUCTS) for (const g of prod.groups) assert.ok(GROUPS[g], `${prod.id} -> ${g}`);
   for (const r of RULES) for (const g of r.pair) assert.ok(GROUPS[g], `rule -> ${g}`);
 });
+
+import { encodeShare, decodeShare, makeQuiz, quizAnswer, checkPair as cp } from "../js/engine.js";
+
+test("label: Hindi ingredient names are recognised", () => {
+  assert.deepEqual(parseLabel("इसमें हाइड्रोक्लोरिक एसिड है").groups, ["strongAcid"]);
+  assert.deepEqual(parseLabel("ब्लीचिंग पाउडर").groups, ["hypochlorite"]);
+});
+
+test("label: Hindi 'do not mix' warning is skipped", () => {
+  const r = parseLabel("सामग्री: अमोनिया। ब्लीच के साथ न मिलाएं।");
+  assert.deepEqual(r.groups, ["ammonia"]);
+});
+
+test("label: aerosol propellant is flammable", () => {
+  assert.deepEqual(parseLabel("Contains butane. Extremely flammable aerosol.").groups, ["flammable"]);
+});
+
+test("label: percarbonate is peroxide", () => {
+  assert.ok(parseLabel("Sodium percarbonate 40%").groups.includes("peroxide"));
+});
+
+test("share: round trip keeps known ids and drops custom/unknown ones", () => {
+  const enc = encodeShare(["bleach", "custom-123", "vinegar"]);
+  assert.equal(enc, "bleach,vinegar");
+  assert.deepEqual(decodeShare(`#mix=${enc}`), ["bleach", "vinegar"]);
+  assert.deepEqual(decodeShare("#mix=bleach,<script>,bleach"), ["bleach"]);
+  assert.deepEqual(decodeShare(""), []);
+});
+
+test("quiz: questions agree with the checker", () => {
+  let seed = 1;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const qs = makeQuiz(8, rand);
+  assert.equal(qs.length, 8);
+  for (const q of qs) assert.equal(q.level, cp(q.a, q.b).level);
+  assert.ok(qs.some((q) => quizAnswer(q.level) === "no"));
+  assert.ok(qs.some((q) => quizAnswer(q.level) === "ok"));
+});
+
+test("new products: bleaching powder + vinegar is a danger, spirit + bleach is a danger", () => {
+  assert.equal(cp(p("bleaching-powder"), p("vinegar")).level, "danger");
+  assert.equal(cp(p("spirit"), p("bleach")).level, "danger");
+  assert.equal(cp(p("toilet-unknown"), p("bleach")).level, "unknown");
+});
+
+test("data: every rule has a safer-way tip", () => {
+  for (const r of RULES) assert.ok(r.instead && r.instead.length > 20, r.pair.join("+"));
+});

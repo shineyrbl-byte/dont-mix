@@ -1,5 +1,5 @@
 // Pure logic: no DOM, so it runs in the browser and in Node tests.
-import { GROUPS, LEVELS, RULES, STORAGE_RULES, PRODUCTS, KEYWORDS } from "./data.js";
+import { GROUPS, LEVELS, RULES, STORAGE_RULES, PRODUCTS, KEYWORDS, ruleKey } from "./data.js";
 
 const samePair = (pair, a, b) =>
   (pair[0] === a && pair[1] === b) || (pair[0] === b && pair[1] === a);
@@ -73,7 +73,7 @@ export function checkStorage(items) {
         const hit = items[i].groups.some((a) =>
           items[j].groups.some((b) => samePair(rule.pair, a, b)),
         );
-        if (hit) out.push({ a: items[i], b: items[j], advice: rule.advice });
+        if (hit) out.push({ a: items[i], b: items[j], key: ruleKey(rule.pair), advice: rule.advice });
       }
     }
   }
@@ -83,7 +83,7 @@ export function checkStorage(items) {
 // Sentences like "Do not mix with bleach" name chemicals the product does
 // NOT contain. Drop them before looking for ingredients.
 const WARNING_SENTENCE =
-  /\b(do not|don't|never|not to|avoid|keep away|keep out|store away|separately from|incompatible)\b/i;
+  /\b(do not|don't|never|not to|avoid|keep away|keep out|store away|separately from|incompatible)\b|न मिलाएं|न मिलाएँ|मत मिलाएं|मत मिलाएँ|ना मिलाएं|दूर रखें/i;
 const NEGATED_PHRASE =
   /\b(no|non|without|free of|zero)[\s-]+(chlorine|bleach|ammonia|alcohol|phosphates?|acid)\b|\b(chlorine|bleach|ammonia|alcohol|phosphate|acid)[\s-]+free\b/gi;
 
@@ -91,7 +91,7 @@ const NEGATED_PHRASE =
 // that matched so the user can see why.
 export function parseLabel(text) {
   const kept = String(text)
-    .split(/[.;!\n•]+/)
+    .split(/[.;!\n•।]+/)
     .filter((s) => !WARNING_SENTENCE.test(s))
     .join(" . ")
     .toLowerCase()
@@ -100,7 +100,8 @@ export function parseLabel(text) {
   let rest = ` ${kept} `;
   const matches = [];
   for (const [word, group] of KEYWORDS) {
-    const re = new RegExp(`\\b${escape(word)}\\b`, "g");
+    // Unicode-aware whole-word match, so Hindi words work too.
+    const re = new RegExp(`(?<![\\p{L}\\p{N}\\p{M}])${escape(word)}(?![\\p{L}\\p{N}\\p{M}])`, "gu");
     if (re.test(rest)) {
       matches.push({ word, group });
       rest = rest.replace(re, " ".repeat(word.length));
@@ -110,13 +111,51 @@ export function parseLabel(text) {
   return {
     groups: groups.length ? groups : ["unknown"],
     matches,
-    skippedWarnings: String(text).split(/[.;!\n•]+/).filter((s) => WARNING_SENTENCE.test(s)).map((s) => s.trim()),
+    skippedWarnings: String(text).split(/[.;!\n•।]+/).filter((s) => WARNING_SENTENCE.test(s)).map((s) => s.trim()),
   };
 }
 
 export function groupName(id) {
   return GROUPS[id]?.name ?? id;
 }
+
+// Encode picked product ids for a share link. Custom label products are
+// left out because they may contain text the person typed.
+export function encodeShare(ids) {
+  return ids.filter((id) => PRODUCTS.some((p) => p.id === id)).join(",");
+}
+export function decodeShare(hash) {
+  const m = /(?:^|[#&])mix=([^&]*)/.exec(hash || "");
+  if (!m) return [];
+  return [...new Set(decodeURIComponent(m[1]).split(","))].filter((id) => PRODUCTS.some((p) => p.id === id));
+}
+
+// Quiz questions built from the same rules the checker uses, so the quiz can
+// never disagree with the app. `rand` is injectable for tests.
+export function makeQuiz(count = 8, rand = Math.random) {
+  const known = PRODUCTS.filter((p) => !p.groups.includes("unknown"));
+  const pool = [];
+  for (let i = 0; i < known.length; i++) {
+    for (let j = i + 1; j < known.length; j++) {
+      const r = checkPair(known[i], known[j]);
+      pool.push({ a: known[i], b: known[j], level: r.level, result: r });
+    }
+  }
+  const take = (list, n) => {
+    const copy = [...list];
+    const out = [];
+    while (copy.length && out.length < n) out.push(copy.splice(Math.floor(rand() * copy.length), 1)[0]);
+    return out;
+  };
+  // Mostly risky pairs (that's what we want people to learn), some safe ones.
+  const risky = pool.filter((q) => q.level !== "info");
+  const safe = pool.filter((q) => q.level === "info");
+  const nRisky = Math.ceil(count * 0.6);
+  return take([...take(risky, nRisky), ...take(safe, count - nRisky)], count);
+}
+
+// Quiz answers are simpler than levels: "no" (danger or warning) or "ok".
+export const quizAnswer = (level) => (level === "info" ? "ok" : "no");
 
 function escape(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
