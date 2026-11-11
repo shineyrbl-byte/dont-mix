@@ -101,6 +101,13 @@ const S = {
   "reason.none": ["Nothing in our list says these two react dangerously. Mixing cleaners rarely cleans better, though, so use one, rinse, then the other.", "हमारी सूची में इन दोनों की कोई ख़तरनाक प्रतिक्रिया नहीं है। फिर भी मिलाने से सफ़ाई शायद ही बेहतर होती है, इसलिए एक लगाएँ, धोएँ, फिर दूसरा।"],
   "reason.instead": ["Safer way:", "सुरक्षित तरीका:"],
   "reason.eq": ["Reaction:", "प्रतिक्रिया:"],
+  "act.share": ["Share", "शेयर करें"],
+  "act.copied": ["Link copied", "लिंक कॉपी हो गया"],
+  "act.copyFail": ["Couldn't copy. Copy the address bar instead.", "कॉपी नहीं हुआ। ऊपर पता (URL) कॉपी करें।"],
+  "act.shareNote": ["Products added from a label aren't included in the link.", "लेबल से जोड़े गए प्रोडक्ट लिंक में शामिल नहीं होते।"],
+  "act.shareText": ["Don't Mix check: {verdict}: {items}", "Don't Mix जाँच: {verdict}: {items}"],
+  "act.speak": ["Read aloud", "सुनें"],
+  "act.stop": ["Stop", "रोकें"],
   // @end
 };
 

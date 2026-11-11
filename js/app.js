@@ -4,6 +4,7 @@ import "./tabs.js";
 import "./mix.js";
 import "./label.js";
 import "./cupboard.js";
+import "./actions.js";
 
 // Translate the fixed text on the page.
 applyStatic();
