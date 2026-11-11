@@ -6,8 +6,34 @@ import { esc } from "./render.js";
 import { t, pName, ruleText } from "./i18n.js";
 
 const $sheet = document.getElementById("print-sheet");
+const APP_URL = "https://shineyrbl-byte.github.io/dont-mix/";
+const QR_LIB = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js";
 
-function build() {
+// QR code to the app, so anyone in the house can scan the sticker.
+// Loaded only when printing; if offline, the sticker shows the address only.
+function loadQR() {
+  if (globalThis.qrcode) return Promise.resolve(globalThis.qrcode);
+  return new Promise((resolve) => {
+    const s = document.createElement("script");
+    s.src = QR_LIB;
+    s.crossOrigin = "anonymous";
+    s.onload = () => resolve(globalThis.qrcode);
+    s.onerror = () => resolve(null);
+    document.head.append(s);
+    setTimeout(() => resolve(null), 4000);
+  });
+}
+
+async function qrSvg() {
+  const qrcode = await loadQR();
+  if (!qrcode) return "";
+  const qr = qrcode(0, "M");
+  qr.addData(APP_URL);
+  qr.make();
+  return qr.createSvgTag({ cellSize: 3, margin: 0, scalable: true });
+}
+
+async function build() {
   const items = cupboardItems();
   const risky = items.length > 1 ? checkAll(items).filter((r) => r.level === "danger" || r.level === "warning") : [];
   const yours = risky.map((r) => {
@@ -27,11 +53,14 @@ function build() {
       ${yours.length ? `<h2>${t("print.yours")}</h2><ul>${yours.join("")}</ul>` : ""}
       <p class="rule">${t("print.rule")}</p>
       <p class="call">${t("print.mixed")} ${numbers}</p>
-      <p class="url">Don't Mix · shineyrbl-byte.github.io/dont-mix</p>
+      <div class="url">${await qrSvg()}<span>Don't Mix · shineyrbl-byte.github.io/dont-mix</span></div>
     </div>`;
 }
 
-document.getElementById("print-btn").addEventListener("click", () => {
-  build();
+document.getElementById("print-btn").addEventListener("click", async (e) => {
+  const btn = e.currentTarget;
+  btn.disabled = true;
+  await build();
+  btn.disabled = false;
   window.print();
 });
