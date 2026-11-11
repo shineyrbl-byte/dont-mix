@@ -16,10 +16,13 @@
   --info-bg: #e7f6ec;
   --focus: #2563eb;
   --radius: 14px;
+  --sos-ink: #ffffff;
+  color-scheme: light;
 }
 
+/* Dark theme: follows the system unless the person picked light or dark. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1412;
     --card: #18201d;
     --text: #e8eeeb;
@@ -36,7 +39,29 @@
     --info: #7ee2a0;
     --info-bg: #11301d;
     --focus: #93c5fd;
+    --sos-ink: #2a0b08;
+    color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1412;
+  --card: #18201d;
+  --text: #e8eeeb;
+  --muted: #a3b1ab;
+  --line: #2c3833;
+  --brand: #2dd4bf;
+  --brand-ink: #062b27;
+  --danger: #ff8a80;
+  --danger-bg: #3a1513;
+  --warning: #ffc266;
+  --warning-bg: #352507;
+  --unknown: #cbd2d9;
+  --unknown-bg: #262c31;
+  --info: #7ee2a0;
+  --info-bg: #11301d;
+  --focus: #93c5fd;
+  --sos-ink: #2a0b08;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -69,10 +94,9 @@ h1 { margin: 0; font-size: 26px; }
 button { font: inherit; cursor: pointer; }
 
 .sos {
-  background: var(--danger); color: #fff; border: 0;
+  background: var(--danger); color: var(--sos-ink); border: 0;
   padding: 10px 16px; border-radius: 999px; font-weight: 700;
 }
-@media (prefers-color-scheme: dark) { .sos { color: #2a0b08; } }
 
 .tabs {
   display: flex; gap: 4px; margin-top: 20px;
@@ -270,3 +294,8 @@ ul.steps { padding-left: 20px; }
 #about-rules small { color: var(--muted); }
 dialog { max-height: calc(100dvh - 32px); }
 a { color: var(--brand); }
+
+/* What to tell the poison centre */
+.tell { background: var(--unknown-bg); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
+.tell h3 { margin: 0 0 4px; font-size: 16px; }
+.tell p { margin: 0; }

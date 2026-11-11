@@ -8,17 +8,62 @@ const $install = document.getElementById("install-btn");
 const $status = document.getElementById("app-status");
 
 // Text size, remembered on this device.
-function setSize(size) {
+function setSize(size, persist = true) {
   document.documentElement.dataset.size = size;
   for (const b of $sizes.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.size === size));
-  try { localStorage.setItem(SIZE_KEY, size); } catch { /* fine */ }
+  if (persist) try { localStorage.setItem(SIZE_KEY, size); } catch { /* fine */ }
 }
 let saved = "m";
 try { saved = localStorage.getItem(SIZE_KEY) || "m"; } catch { /* fine */ }
-setSize(SIZES.includes(saved) ? saved : "m");
+setSize(SIZES.includes(saved) ? saved : "m", false);
 $sizes.addEventListener("click", (e) => {
   const b = e.target.closest("[data-size]");
   if (b) setSize(b.dataset.size);
+});
+
+// Theme: follow the system, or force light or dark.
+const THEME_KEY = "dont-mix:theme";
+const $themes = document.getElementById("theme-buttons");
+function setTheme(choice, persist = true) {
+  if (choice === "light" || choice === "dark") document.documentElement.dataset.theme = choice;
+  else delete document.documentElement.dataset.theme;
+  for (const b of $themes.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b.dataset.themeChoice === choice));
+  if (persist) try { localStorage.setItem(THEME_KEY, choice); } catch { /* fine */ }
+}
+let savedTheme = "system";
+try { savedTheme = localStorage.getItem(THEME_KEY) || "system"; } catch { /* fine */ }
+setTheme(["light", "dark"].includes(savedTheme) ? savedTheme : "system", false);
+$themes.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-theme-choice]");
+  if (b) setTheme(b.dataset.themeChoice);
+});
+
+// Delete everything this app stored on the device. Two taps, so it can't
+// happen by accident.
+const $delete = document.getElementById("delete-data");
+let armed = false;
+$delete.addEventListener("click", async () => {
+  if (!armed) {
+    armed = true;
+    $delete.textContent = t("set.deleteConfirm");
+    setTimeout(() => {
+      armed = false;
+      $delete.textContent = t("set.delete");
+    }, 6000);
+    return;
+  }
+  $delete.disabled = true;
+  $delete.textContent = t("set.deleted");
+  try {
+    for (const k of Object.keys(localStorage)) if (k.startsWith("dont-mix:")) localStorage.removeItem(k);
+  } catch { /* nothing stored */ }
+  try {
+    for (const k of await caches.keys()) await caches.delete(k);
+    for (const r of (await navigator.serviceWorker?.getRegistrations()) ?? []) await r.unregister();
+    // Tesseract keeps its language files in this IndexedDB store.
+    indexedDB.deleteDatabase("keyval-store");
+  } catch { /* fine */ }
+  location.replace(location.pathname);
 });
 
 // Install button: only shown when the browser offers it.

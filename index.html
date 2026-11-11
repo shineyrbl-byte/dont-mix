@@ -9,6 +9,16 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>
+    // Apply saved theme and text size before first paint, to avoid a flash.
+    try {
+      const d = document.documentElement;
+      const th = localStorage.getItem("dont-mix:theme");
+      if (th === "light" || th === "dark") d.dataset.theme = th;
+      const sz = localStorage.getItem("dont-mix:size");
+      if (sz === "l" || sz === "xl") d.dataset.size = sz;
+    } catch (e) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
@@ -89,6 +99,7 @@
         <button class="primary" id="cup-add-btn" data-i18n="cup.addBtn">Add</button>
       </div>
       <ul id="cup-list" class="cup-list"></ul>
+      <p id="cup-undo" class="meta" role="status" hidden></p>
       <div class="row">
         <button class="ghost" id="cup-share" hidden data-i18n="cup.share">Share this list</button>
         <span id="cup-share-status" class="meta" role="status"></span>
@@ -131,6 +142,7 @@
         <li data-i18n-html="sos.child"></li>
       </ul>
       <div id="sos-numbers" class="numbers"></div>
+      <div id="sos-tell" class="tell" hidden></div>
       <p class="fine" data-i18n="sos.fine"></p>
       <button class="primary" value="close" data-i18n="sos.close">Close</button>
     </form>
@@ -163,7 +175,16 @@
           <button data-size="xl" aria-label="A++">A++</button>
         </span>
       </div>
+      <div class="size" role="group" data-i18n-aria="set.theme">
+        <span data-i18n="set.theme">Theme</span>
+        <span id="theme-buttons" class="seg">
+          <button data-theme-choice="system" data-i18n="set.theme.system">Auto</button>
+          <button data-theme-choice="light" data-i18n="set.theme.light">Light</button>
+          <button data-theme-choice="dark" data-i18n="set.theme.dark">Dark</button>
+        </span>
+      </div>
       <button class="ghost" id="install-btn" hidden data-i18n="set.install">Install app</button>
+      <button class="link" id="delete-data" data-i18n="set.delete">Delete my data</button>
       <span id="app-status" role="status"></span>
     </div>
     <p><button class="link" id="about-open" aria-haspopup="dialog" data-i18n="about.btn">How it decides, sources &amp; privacy</button></p>

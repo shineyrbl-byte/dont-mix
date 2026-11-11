@@ -47,5 +47,5 @@ export function verdictCard(level, extra = "") {
 
 // Any "see what to do" button inside a result opens the emergency dialog.
 document.addEventListener("click", (e) => {
-  if (e.target.closest("[data-open-sos]")) document.getElementById("sos").showModal();
+  if (e.target.closest("[data-open-sos]")) document.dispatchEvent(new Event("open-sos"));
 });

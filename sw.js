@@ -1,6 +1,6 @@
 // Cache every app file so it works with no signal (e.g. a basement bathroom).
 // Bump VERSION whenever files change, so people get the update.
-const VERSION = "v5";
+const VERSION = "v6";
 const CACHE = `dont-mix-${VERSION}`;
 const FILES = [
   "./",

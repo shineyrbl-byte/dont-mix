@@ -176,6 +176,19 @@ const S = {
   "about.limits": ["It knows common product types and ingredient names, not every brand. Photo scanning can misread small or blurry text. It covers mixing and storage, not every hazard of each product. The Hindi text was written with AI help and is waiting for review by a native speaker. It is not medical advice.", "यह आम प्रोडक्ट और सामग्री के नाम जानता है, हर ब्रांड नहीं। फ़ोटो स्कैन छोटा या धुँधला टेक्स्ट ग़लत पढ़ सकता है। यह मिलाने और रखने के बारे में है, हर प्रोडक्ट के हर ख़तरे के बारे में नहीं। हिन्दी टेक्स्ट AI की मदद से लिखा गया है और किसी हिन्दी भाषी विशेषज्ञ की जाँच बाकी है। यह डॉक्टरी सलाह नहीं है।"],
   "about.report": ["Found a mistake or a missing product? Report it on GitHub", "कोई ग़लती या छूटा हुआ प्रोडक्ट मिला? GitHub पर बताएँ"],
   "about.reviewed": ["Rules last reviewed: November 2026", "नियमों की आख़िरी समीक्षा: नवंबर 2026"],
+  "set.theme": ["Theme", "रंग"],
+  "set.theme.system": ["Auto", "अपने आप"],
+  "set.theme.light": ["Light", "हल्का"],
+  "set.theme.dark": ["Dark", "गहरा"],
+  "set.delete": ["Delete my data", "मेरा डेटा मिटाएँ"],
+  "set.deleteConfirm": ["Tap again to delete your cupboard, settings and offline files from this device", "इस डिवाइस से अपनी अलमारी, सेटिंग और ऑफ़लाइन फ़ाइलें मिटाने के लिए फिर से दबाएँ"],
+  "set.deleted": ["Deleted. Reloading…", "मिटा दिया। रीलोड हो रहा है…"],
+  "sos.tell.h": ["What to tell them on the phone", "फ़ोन पर उन्हें क्या बताएँ"],
+  "sos.tell": ["I mixed {items}. It may give off {gases}. How long ago, and who breathed it or touched it: ___", "मैंने {items} मिला दिया। इससे {gases} निकल सकती है। कितनी देर पहले, और किसने साँस ली या छुआ: ___"],
+  "sos.tell.unknown": ["I mixed {items}. I have the bottles here to read the labels. How long ago, and who breathed it or touched it: ___", "मैंने {items} मिला दिया। लेबल पढ़ने के लिए बोतलें मेरे पास हैं। कितनी देर पहले, और किसने साँस ली या छुआ: ___"],
+  "sos.and": [" and ", " और "],
+  "cup.removed": ["Removed {name}.", "{name} हटा दिया।"],
+  "cup.undo": ["Undo", "वापस लाएँ"],
   // @end
 };
 

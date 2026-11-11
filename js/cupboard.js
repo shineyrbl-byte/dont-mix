@@ -99,12 +99,26 @@ document.getElementById("cup-add-btn").addEventListener("click", () => {
   addToCupboard(product);
 });
 
+// Removing shows an Undo for a few seconds, in case of a mis-tap.
+const $undo = document.getElementById("cup-undo");
+let undoTimer = null;
 $list.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-remove]");
   if (!btn) return;
-  items.splice(Number(btn.dataset.remove), 1);
+  const index = Number(btn.dataset.remove);
+  const [removed] = items.splice(index, 1);
   save();
   draw();
+  clearTimeout(undoTimer);
+  $undo.innerHTML = `<span>${esc(t("cup.removed", { name: pName(removed) }))}</span> <button class="link" id="cup-undo-btn">${t("cup.undo")}</button>`;
+  $undo.hidden = false;
+  document.getElementById("cup-undo-btn").addEventListener("click", () => {
+    items.splice(Math.min(index, items.length), 0, removed);
+    save();
+    draw();
+    $undo.hidden = true;
+  });
+  undoTimer = setTimeout(() => ($undo.hidden = true), 8000);
   $select.focus();
 });
 
