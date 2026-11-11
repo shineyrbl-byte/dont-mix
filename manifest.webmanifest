@@ -1,0 +1,13 @@
+{
+  "name": "Don't Mix",
+  "short_name": "Don't Mix",
+  "description": "Check cleaning products before you mix or store them together.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f6",
+  "theme_color": "#0f766e",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
