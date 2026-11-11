@@ -160,3 +160,8 @@ test("label: a new capitalised line is not joined to the previous one", () => {
 test("label: Hindi ingredient before a warning clause is kept", () => {
   assert.deepEqual(parseLabel("सामग्री: ब्लीच, एसिड के साथ न मिलाएं").groups, ["hypochlorite"]);
 });
+
+test("share: cupboard links use their own key", () => {
+  assert.deepEqual(decodeShare("#cup=bleach,toilet-acid", "cup"), ["bleach", "toilet-acid"]);
+  assert.deepEqual(decodeShare("#cup=bleach", "mix"), []);
+});

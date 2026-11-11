@@ -80,6 +80,7 @@
 
     <!-- My cupboard -->
     <section id="panel-cupboard" role="tabpanel" aria-labelledby="tab-cupboard" hidden>
+      <div id="cup-incoming" hidden></div>
       <h2 data-i18n="cup.h">What's under your sink?</h2>
       <p class="hint" data-i18n="cup.hint"></p>
       <label for="cup-add" data-i18n="cup.add">Add a product</label>
@@ -88,6 +89,10 @@
         <button class="primary" id="cup-add-btn" data-i18n="cup.addBtn">Add</button>
       </div>
       <ul id="cup-list" class="cup-list"></ul>
+      <div class="row">
+        <button class="ghost" id="cup-share" hidden data-i18n="cup.share">Share this list</button>
+        <span id="cup-share-status" class="meta" role="status"></span>
+      </div>
       <div id="cup-result" class="result" aria-live="polite"></div>
       <div class="print-box">
         <button class="ghost" id="print-btn" data-i18n="print.btn">Print a "Never mix" sticker</button>

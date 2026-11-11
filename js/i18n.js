@@ -153,6 +153,14 @@ const S = {
   "sos.swallow": ["<strong>Swallowed:</strong> don't make them vomit. Rinse the mouth with water and spit it out. Call the poison centre now, with the bottle in your hand.", "<strong>निगल लिया:</strong> उल्टी न करवाएँ। मुँह में पानी लेकर कुल्ला करवाएँ और थूकने दें। बोतल हाथ में लेकर अभी ज़हर सूचना केंद्र को फ़ोन करें।"],
   "sos.eyes": ["<strong>In the eyes:</strong> hold the eye open under gently running water for 15 minutes. Take out contact lenses if it's easy.", "<strong>आँखों में:</strong> आँख खोलकर 15 मिनट तक धीरे बहते पानी के नीचे रखें। कॉन्टैक्ट लेंस आसानी से निकलें तो निकाल दें।"],
   "sos.child": ["<strong>A child might have swallowed a cleaner?</strong> Call even if they seem fine. Some burns and symptoms show up later.", "<strong>बच्चे ने क्लीनर निगल लिया हो सकता है?</strong> वह ठीक लगे तब भी फ़ोन करें। कुछ जलन और लक्षण बाद में दिखते हैं।"],
+  "cup.share": ["🔗 Share this list", "🔗 यह सूची शेयर करें"],
+  "cup.shareText": ["Here's what's in our cleaning cupboard. Check what shouldn't be mixed or stored together:", "हमारी सफ़ाई की अलमारी में यह रखा है। देखें क्या मिलाना या साथ रखना नहीं चाहिए:"],
+  "cup.in.h": ["Someone shared a cupboard list ({n} products)", "किसी ने अलमारी की सूची शेयर की है ({n} प्रोडक्ट)"],
+  "cup.in.replace": ["Use this list", "यह सूची इस्तेमाल करें"],
+  "cup.in.merge": ["Add to mine", "मेरी सूची में जोड़ें"],
+  "cup.in.ignore": ["Ignore", "रहने दें"],
+  "label.save": ["Save to my cupboard", "मेरी अलमारी में सेव करें"],
+  "label.saved": ["Saved to My cupboard.", "मेरी अलमारी में सेव हो गया।"],
   // @end
 };
 

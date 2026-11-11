@@ -2,6 +2,7 @@ import { parseLabel } from "./engine.js";
 import { esc } from "./render.js";
 import { addCustomProduct } from "./mix.js";
 import { showTab } from "./tabs.js";
+import { addToCupboard } from "./cupboard.js";
 import { t, lang, gName, gTip } from "./i18n.js";
 
 const $name = document.getElementById("label-name");
@@ -54,19 +55,34 @@ export function read() {
 
   $result.innerHTML = `${found}
     <article class="card"><p class="meta">${t("label.whatWeRead")}</p><p>${highlight(text, lastParse.matches)}</p>${skipped}</article>
-    <div class="row"><button class="primary" id="label-add">${t("label.add")}</button></div>`;
+    <div class="row">
+      <button class="primary" id="label-add">${t("label.add")}</button>
+      <button class="ghost" id="label-save">${t("label.save")}</button>
+      <span id="label-save-status" class="meta" role="status"></span>
+    </div>`;
   document.getElementById("label-add").addEventListener("click", addToMix);
+  document.getElementById("label-save").addEventListener("click", saveToCupboard);
 }
 
-function addToMix() {
+function labelProduct() {
   const name = $name.value.trim() || t("label.defaultName", { n: ++counter });
-  addCustomProduct({
+  return {
     id: `custom-${Date.now()}`,
     name,
     hint: t("label.fromLabel", { groups: lastParse.groups.map(gName).join(", ") }),
     groups: lastParse.groups,
     custom: true,
-  });
+  };
+}
+
+function saveToCupboard(e) {
+  addToCupboard(labelProduct());
+  e.target.disabled = true;
+  document.getElementById("label-save-status").textContent = t("label.saved");
+}
+
+function addToMix() {
+  addCustomProduct(labelProduct());
   showTab(document.getElementById("tab-mix"));
   document.getElementById("mix-search").focus();
 }

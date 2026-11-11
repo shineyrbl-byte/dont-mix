@@ -1,5 +1,5 @@
-import { PRODUCTS } from "./data.js";
-import { checkAll, checkStorage, findProduct } from "./engine.js";
+import { PRODUCTS, GROUPS } from "./data.js";
+import { checkAll, checkStorage, findProduct, encodeShare, decodeShare } from "./engine.js";
 import { esc, pairCard } from "./render.js";
 import { t, gName, pName, storageText, basics } from "./i18n.js";
 
@@ -7,28 +7,49 @@ const KEY = "dont-mix:cupboard";
 const $select = document.getElementById("cup-add");
 const $list = document.getElementById("cup-list");
 const $result = document.getElementById("cup-result");
+const $share = document.getElementById("cup-share");
+const $shareStatus = document.getElementById("cup-share-status");
+const $incoming = document.getElementById("cup-incoming");
 const listeners = [];
 
-// Saved only in this browser. If storage is blocked (private mode), it
-// still works for this visit.
+// The list holds built-in product ids (strings) and products saved from a
+// label ({ id, name, groups }). Saved only in this browser; if storage is
+// blocked (private mode) it still works for this visit.
+function revive(entry) {
+  if (typeof entry === "string") return findProduct(entry);
+  if (entry && typeof entry.name === "string" && Array.isArray(entry.groups)) {
+    const groups = entry.groups.filter((g) => GROUPS[g]);
+    if (!groups.length) return null;
+    return { id: String(entry.id), name: entry.name.slice(0, 80), hint: entry.hint ?? "", groups, custom: true };
+  }
+  return null;
+}
 function load() {
   try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]").filter(findProduct);
+    return JSON.parse(localStorage.getItem(KEY) || "[]").map(revive).filter(Boolean);
   } catch {
     return [];
   }
 }
 function save() {
+  const data = items.map((p) => (p.custom ? { id: p.id, name: p.name, hint: p.hint, groups: p.groups } : p.id));
   try {
-    localStorage.setItem(KEY, JSON.stringify(ids));
+    localStorage.setItem(KEY, JSON.stringify(data));
   } catch {
     /* not saved, still usable */
   }
 }
 
-let ids = load();
-export const cupboardItems = () => ids.map(findProduct);
+let items = load();
+export const cupboardItems = () => [...items];
 export const onCupboardChange = (fn) => listeners.push(fn);
+
+export function addToCupboard(product) {
+  if (items.some((p) => p.id === product.id)) return;
+  items.push(product);
+  save();
+  draw();
+}
 
 $select.innerHTML =
   `<option value="">${t("cup.choose")}</option>` +
@@ -37,13 +58,14 @@ $select.innerHTML =
 document.getElementById("cup-basics").innerHTML = basics().map((b) => `<li>${esc(b)}</li>`).join("");
 
 function draw() {
-  const items = cupboardItems();
   $list.innerHTML = items
     .map(
       (p, i) => `<li><span>${esc(pName(p))} <small class="meta">· ${esc(p.groups.map(gName).join(", "))}</small></span>
         <button class="link" data-remove="${i}" aria-label="${esc(t("cup.removeAria", { name: pName(p) }))}">${t("cup.remove")}</button></li>`,
     )
     .join("");
+  $share.hidden = !items.some((p) => !p.custom);
+  $shareStatus.textContent = "";
   for (const fn of listeners) fn(items);
 
   if (items.length < 2) {
@@ -71,21 +93,62 @@ function draw() {
 }
 
 document.getElementById("cup-add-btn").addEventListener("click", () => {
-  const id = $select.value;
-  if (!id) return $select.focus();
-  if (!ids.includes(id)) ids.push(id);
+  const product = findProduct($select.value);
+  if (!product) return $select.focus();
   $select.value = "";
-  save();
-  draw();
+  addToCupboard(product);
 });
 
 $list.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-remove]");
   if (!btn) return;
-  ids.splice(Number(btn.dataset.remove), 1);
+  items.splice(Number(btn.dataset.remove), 1);
   save();
   draw();
   $select.focus();
 });
+
+// Share the list (built-in product types only) with family or flatmates.
+$share.addEventListener("click", async () => {
+  const url = `${location.origin}${location.pathname}#cup=${encodeShare(items.map((p) => p.id))}`;
+  const note = items.some((p) => p.custom) ? ` ${t("act.shareNote")}` : "";
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: "Don't Mix", text: t("cup.shareText"), url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      $shareStatus.textContent = t("act.copied") + note;
+    }
+  } catch (err) {
+    if (err?.name !== "AbortError") $shareStatus.textContent = t("act.copyFail");
+  }
+});
+
+// Someone opened a shared cupboard link: ask before replacing their list.
+const incoming = decodeShare(location.hash, "cup");
+if (incoming.length) {
+  const names = incoming.map((id) => pName(findProduct(id))).join(", ");
+  $incoming.innerHTML = `<article class="card info" role="status">
+      <h3>📥 ${t("cup.in.h", { n: incoming.length })}</h3>
+      <p>${esc(names)}</p>
+      <div class="row">
+        <button class="primary" data-incoming="replace">${t("cup.in.replace")}</button>
+        ${items.length ? `<button class="ghost" data-incoming="merge">${t("cup.in.merge")}</button>` : ""}
+        <button class="link" data-incoming="ignore">${t("cup.in.ignore")}</button>
+      </div></article>`;
+  $incoming.hidden = false;
+  $incoming.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-incoming]");
+    if (!b) return;
+    const choice = b.dataset.incoming;
+    if (choice === "replace") items = [];
+    if (choice !== "ignore") for (const id of incoming) if (!items.some((p) => p.id === id)) items.push(findProduct(id));
+    save();
+    draw();
+    $incoming.hidden = true;
+    history.replaceState(null, "", location.pathname + location.search);
+  });
+  queueMicrotask(() => document.getElementById("tab-cupboard").click());
+}
 
 draw();

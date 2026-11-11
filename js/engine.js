@@ -140,8 +140,8 @@ export function groupName(id) {
 export function encodeShare(ids) {
   return ids.filter((id) => PRODUCTS.some((p) => p.id === id)).join(",");
 }
-export function decodeShare(hash) {
-  const m = /(?:^|[#&])mix=([^&]*)/.exec(hash || "");
+export function decodeShare(hash, key = "mix") {
+  const m = new RegExp(`(?:^|[#&])${key}=([^&]*)`).exec(hash || "");
   if (!m) return [];
   return [...new Set(decodeURIComponent(m[1]).split(","))].filter((id) => PRODUCTS.some((p) => p.id === id));
 }
