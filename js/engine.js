@@ -80,19 +80,35 @@ export function checkStorage(items) {
   return out;
 }
 
-// Sentences like "Do not mix with bleach" name chemicals the product does
-// NOT contain. Drop them before looking for ingredients.
-const WARNING_SENTENCE =
+// Phrases like "Do not mix with bleach" name chemicals the product does NOT
+// contain. We drop the text from the warning to the end of its sentence, but
+// keep what comes before it, so "Contains bleach, do not mix with acids"
+// still finds the bleach. Missing a hazard is worse than a false alarm.
+const WARNING =
   /\b(do not|don't|never|not to|avoid|keep away|keep out|store away|separately from|incompatible)\b|न मिलाएं|न मिलाएँ|मत मिलाएं|मत मिलाएँ|ना मिलाएं|दूर रखें/i;
 const NEGATED_PHRASE =
   /\b(no|non|without|free of|zero)[\s-]+(chlorine|bleach|ammonia|alcohol|phosphates?|acid)\b|\b(chlorine|bleach|ammonia|alcohol|phosphate|acid)[\s-]+free\b/gi;
 
+// Labels (and photo scans) wrap lines mid-sentence. Join a line to the
+// previous one when it starts with a lowercase letter.
+const unwrap = (text) => String(text).replace(/[ \t]*\n[ \t]*(?=[a-z])/g, " ");
+const sentences = (text) => unwrap(text).split(/[.;!\n•।]+/);
+
+function splitWarning(sentence) {
+  const m = WARNING.exec(sentence);
+  if (!m) return [sentence, ""];
+  // Hindi puts the verb last ("ब्लीच के साथ न मिलाएं"), so the warning starts
+  // at the beginning of its clause, after the previous comma.
+  const cut = /^[\x00-\x7F]+$/.test(m[0]) ? m.index : Math.max(sentence.lastIndexOf(",", m.index), 0);
+  return [sentence.slice(0, cut), sentence.slice(cut).replace(/^,\s*/, "")];
+}
+
 // Read pasted label text and return the hazard groups found, with the words
 // that matched so the user can see why.
 export function parseLabel(text) {
-  const kept = String(text)
-    .split(/[.;!\n•।]+/)
-    .filter((s) => !WARNING_SENTENCE.test(s))
+  const parts = sentences(text).map(splitWarning);
+  const kept = parts
+    .map(([keep]) => keep)
     .join(" . ")
     .toLowerCase()
     .replace(NEGATED_PHRASE, " ");
@@ -111,7 +127,7 @@ export function parseLabel(text) {
   return {
     groups: groups.length ? groups : ["unknown"],
     matches,
-    skippedWarnings: String(text).split(/[.;!\n•।]+/).filter((s) => WARNING_SENTENCE.test(s)).map((s) => s.trim()),
+    skippedWarnings: parts.map(([, warn]) => warn.trim()).filter(Boolean),
   };
 }
 

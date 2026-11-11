@@ -142,3 +142,21 @@ test("new products: bleaching powder + vinegar is a danger, spirit + bleach is a
 test("data: every rule has a safer-way tip", () => {
   for (const r of RULES) assert.ok(r.instead && r.instead.length > 20, r.pair.join("+"));
 });
+
+test("label: ingredient before a warning in the same sentence is kept", () => {
+  const r = parseLabel("Contains sodium hypochlorite, do not mix with acids or ammonia.");
+  assert.deepEqual(r.groups, ["hypochlorite"]);
+  assert.match(r.skippedWarnings[0], /^do not mix/);
+});
+
+test("label: a warning wrapped over two lines is still skipped", () => {
+  assert.deepEqual(parseLabel("Ingredients: ammonia. Do not\nmix with bleach.").groups, ["ammonia"]);
+});
+
+test("label: a new capitalised line is not joined to the previous one", () => {
+  assert.deepEqual(parseLabel("Ingredients: bleach\nDo not mix with acids").groups, ["hypochlorite"]);
+});
+
+test("label: Hindi ingredient before a warning clause is kept", () => {
+  assert.deepEqual(parseLabel("सामग्री: ब्लीच, एसिड के साथ न मिलाएं").groups, ["hypochlorite"]);
+});
