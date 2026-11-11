@@ -171,3 +171,27 @@ dialog::backdrop { background: rgb(0 0 0 / .55); }
   .card { animation: in .18s ease-out; }
   @keyframes in { from { opacity: 0; transform: translateY(4px); } }
 }
+
+/* Header actions and language switch */
+.top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.lang button { background: var(--card); color: var(--muted); border: 0; padding: 8px 12px; }
+.lang button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); font-weight: 600; }
+
+/* Extra lines in result cards */
+.instead { border-top: 1px dashed currentColor; padding-top: 6px; }
+.card .instead { border-color: color-mix(in srgb, var(--text) 25%, transparent); }
+.eq code {
+  font: 14px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.actions:empty { display: none; }
+.ghost {
+  background: var(--card); color: var(--text); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 12px; font-size: 15px;
+}
+
+.basics { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; }
+.basics summary { cursor: pointer; font-weight: 600; }

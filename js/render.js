@@ -1,48 +1,47 @@
 import { LEVELS } from "./data.js";
-import { groupName } from "./engine.js";
+import { t, gName, pName, levelTitle, ruleText } from "./i18n.js";
 
 export const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-const CONFIDENCE = {
-  high: "Well documented",
-  medium: "Expected from the chemistry; less data at household amounts",
-  none: "",
-};
+// Text for one finding, in the current language.
+export function reasonText(r) {
+  if (r.pair) {
+    return { gas: ruleText(r, "gas"), what: ruleText(r, "what"), instead: ruleText(r, "instead"), eq: r.eq };
+  }
+  return { gas: null, what: t(r.level === "unknown" ? "reason.unknown" : "reason.none"), instead: null, eq: null };
+}
 
 // One card for one pair of products.
 export function pairCard(result) {
-  const lvl = LEVELS[result.level];
   const reasons = result.reasons
     .map((r) => {
-      const groups = r.a === r.b ? groupName(r.a) : `${groupName(r.a)} + ${groupName(r.b)}`;
+      const txt = reasonText(r);
+      const groups = r.a === r.b ? gName(r.a) : `${gName(r.a)} + ${gName(r.b)}`;
       const meta = [
-        r.gas ? `<span class="pill">${esc(r.gas)}</span>` : "",
-        CONFIDENCE[r.confidence] ? `${CONFIDENCE[r.confidence]}` : "",
-        r.source ? `Source: ${esc(r.source)}` : "",
+        txt.gas ? `<span class="pill">${esc(txt.gas)}</span>` : "",
+        r.confidence === "high" || r.confidence === "medium" ? t(`conf.${r.confidence}`) : "",
+        r.source ? t("meta.source", { s: esc(r.source) }) : "",
       ].filter(Boolean).join(" · ");
-      return `<p><strong>${esc(groups)}:</strong> ${esc(r.what)}</p>${meta ? `<p class="meta">${meta}</p>` : ""}`;
+      return `<p><strong>${esc(groups)}:</strong> ${esc(txt.what)}</p>
+        ${txt.instead && result.level !== "info" ? `<p class="instead"><strong>${t("reason.instead")}</strong> ${esc(txt.instead)}</p>` : ""}
+        ${txt.instead && result.level === "info" ? `<p>${esc(txt.instead)}</p>` : ""}
+        ${txt.eq ? `<p class="eq"><span class="sr-only">${t("reason.eq")}</span><code>${esc(txt.eq)}</code></p>` : ""}
+        ${meta ? `<p class="meta">${meta}</p>` : ""}`;
     })
     .join("");
   return `<article class="card ${result.level}">
-    <h3><span aria-hidden="true">${lvl.icon}</span> ${lvl.title}: ${esc(result.a.name)} + ${esc(result.b.name)}</h3>
+    <h3><span aria-hidden="true">${LEVELS[result.level].icon}</span> ${esc(levelTitle(result.level))}: ${esc(pName(result.a))} + ${esc(pName(result.b))}</h3>
     ${reasons}
   </article>`;
 }
 
-const SUMMARY = {
-  danger: "Don't use these together. Use one, rinse the surface with water, air the room, then use the other another time.",
-  warning: "Better not to mix. Use them one at a time and rinse in between.",
-  unknown: "We can't say these are safe. Check the label first.",
-  info: "No dangerous reaction in our list. Still, use one at a time. Mixing rarely cleans better.",
-};
-
-export function verdictCard(level) {
-  const lvl = LEVELS[level];
+export function verdictCard(level, extra = "") {
   return `<article class="card ${level}" role="status">
-    <p class="verdict"><span aria-hidden="true">${lvl.icon}</span> ${lvl.title}</p>
-    <p>${SUMMARY[level]}</p>
-    ${level === "danger" ? `<p><button class="link" data-open-sos>Already mixed them? See what to do now →</button></p>` : ""}
+    <p class="verdict"><span aria-hidden="true">${LEVELS[level].icon}</span> ${esc(levelTitle(level))}</p>
+    <p>${t(`sum.${level}`)}</p>
+    ${level === "danger" ? `<p><button class="link" data-open-sos>${t("sum.sosLink")}</button></p>` : ""}
+    ${extra}
   </article>`;
 }
 
