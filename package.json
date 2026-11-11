@@ -1,0 +1,12 @@
+{
+  "name": "dont-mix",
+  "version": "0.1.0",
+  "description": "Check your cleaning products before you mix or store them together. Works offline.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "npx --yes serve@14.2.4 -l 5173 ."
+  },
+  "license": "MIT"
+}
