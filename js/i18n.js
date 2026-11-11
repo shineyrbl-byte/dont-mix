@@ -161,6 +161,21 @@ const S = {
   "cup.in.ignore": ["Ignore", "रहने दें"],
   "label.save": ["Save to my cupboard", "मेरी अलमारी में सेव करें"],
   "label.saved": ["Saved to My cupboard.", "मेरी अलमारी में सेव हो गया।"],
+  "about.btn": ["How it decides, sources & privacy", "यह कैसे तय करता है, स्रोत और प्राइवेसी"],
+  "about.h": ["How Don't Mix decides", "Don't Mix कैसे तय करता है"],
+  "about.how": ["Every product belongs to one or more hazard groups (for example chlorine bleach or strong acid). A fixed table says what happens when two groups meet. There is no AI guessing: the same products always give the same answer, and you can read the whole table below.", "हर प्रोडक्ट एक या ज़्यादा ख़तरे वाले समूहों में आता है (जैसे क्लोरीन ब्लीच या तेज़ एसिड)। एक तय तालिका बताती है कि दो समूह मिलें तो क्या होता है। कोई AI अंदाज़ा नहीं: एक जैसे प्रोडक्ट पर हमेशा एक जैसा जवाब मिलता है, और पूरी तालिका नीचे पढ़ सकते हैं।"],
+  "about.rules": ["All reaction rules", "सभी प्रतिक्रिया नियम"],
+  "about.col.pair": ["Groups", "समूह"],
+  "about.col.result": ["Result", "नतीजा"],
+  "about.col.sure": ["How sure", "कितना पक्का"],
+  "about.col.source": ["Source", "स्रोत"],
+  "about.other": ["Any pair not in this table shows \"No known dangerous reaction\", still with the advice to use one product at a time. A product with unknown ingredients always shows \"Not sure\".", "जो जोड़ी इस तालिका में नहीं है, उस पर \"कोई ज्ञात ख़तरनाक प्रतिक्रिया नहीं\" दिखता है, फिर भी एक-एक करके इस्तेमाल करने की सलाह के साथ। जिस प्रोडक्ट की सामग्री पता नहीं, उस पर हमेशा \"पक्का नहीं\" दिखता है।"],
+  "about.privacy.h": ["Privacy", "प्राइवेसी"],
+  "about.privacy": ["No account, no tracking, no analytics, no server. Your cupboard list and settings stay in this browser. Label photos are read on your device and never uploaded. Share links contain only product types, never label text or names you typed.", "न अकाउंट, न ट्रैकिंग, न एनालिटिक्स, न सर्वर। आपकी अलमारी की सूची और सेटिंग इसी ब्राउज़र में रहती हैं। लेबल की फ़ोटो आपके डिवाइस पर पढ़ी जाती है, कहीं अपलोड नहीं होती। शेयर लिंक में सिर्फ़ प्रोडक्ट के प्रकार होते हैं, आपका लिखा टेक्स्ट या नाम नहीं।"],
+  "about.limits.h": ["What it can't do", "यह क्या नहीं कर सकता"],
+  "about.limits": ["It knows common product types and ingredient names, not every brand. Photo scanning can misread small or blurry text. It covers mixing and storage, not every hazard of each product. The Hindi text was written with AI help and is waiting for review by a native speaker. It is not medical advice.", "यह आम प्रोडक्ट और सामग्री के नाम जानता है, हर ब्रांड नहीं। फ़ोटो स्कैन छोटा या धुँधला टेक्स्ट ग़लत पढ़ सकता है। यह मिलाने और रखने के बारे में है, हर प्रोडक्ट के हर ख़तरे के बारे में नहीं। हिन्दी टेक्स्ट AI की मदद से लिखा गया है और किसी हिन्दी भाषी विशेषज्ञ की जाँच बाकी है। यह डॉक्टरी सलाह नहीं है।"],
+  "about.report": ["Found a mistake or a missing product? Report it on GitHub", "कोई ग़लती या छूटा हुआ प्रोडक्ट मिला? GitHub पर बताएँ"],
+  "about.reviewed": ["Rules last reviewed: November 2026", "नियमों की आख़िरी समीक्षा: नवंबर 2026"],
   // @end
 };
 

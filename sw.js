@@ -1,6 +1,6 @@
 // Cache every app file so it works with no signal (e.g. a basement bathroom).
 // Bump VERSION whenever files change, so people get the update.
-const VERSION = "v4";
+const VERSION = "v5";
 const CACHE = `dont-mix-${VERSION}`;
 const FILES = [
   "./",
@@ -21,6 +21,7 @@ const FILES = [
   "js/print.js",
   "js/ocr.js",
   "js/settings.js",
+  "js/about.js",
   "icons/icon.svg",
   "manifest.webmanifest",
 ];
@@ -44,7 +45,7 @@ self.addEventListener("fetch", (e) => {
   // Same-origin files are revalidated with the server every time (a cheap 304
   // when unchanged), so an update never runs a stale copy from the HTTP cache.
   const sameOrigin = e.request.url.startsWith(self.location.origin);
-  const req = sameOrigin && e.request.mode !== "navigate" ? fetch(e.request.url, { cache: "no-cache" }) : fetch(e.request);
+  const req = sameOrigin ? fetch(e.request.url, { cache: "no-cache" }) : fetch(e.request);
   e.respondWith(
     req
       .then((res) => {

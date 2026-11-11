@@ -9,6 +9,7 @@ import "./quiz.js";
 import "./print.js";
 import "./ocr.js";
 import "./settings.js";
+import "./about.js";
 
 // Translate the fixed text on the page.
 applyStatic();

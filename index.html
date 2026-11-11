@@ -136,6 +136,23 @@
     </form>
   </dialog>
 
+  <dialog id="about" aria-labelledby="about-title">
+    <form method="dialog" class="sos-body about-body">
+      <h2 id="about-title" data-i18n="about.h">How Don't Mix decides</h2>
+      <p data-i18n="about.how"></p>
+      <h3 data-i18n="about.rules">All reaction rules</h3>
+      <div class="table-wrap"><table id="about-rules"></table></div>
+      <p class="meta" data-i18n="about.other"></p>
+      <h3 data-i18n="about.privacy.h">Privacy</h3>
+      <p data-i18n="about.privacy"></p>
+      <h3 data-i18n="about.limits.h">What it can't do</h3>
+      <p data-i18n="about.limits"></p>
+      <p><a id="about-report" href="https://github.com/shineyrbl-byte/dont-mix/issues/new" target="_blank" rel="noopener" data-i18n="about.report">Report a mistake</a></p>
+      <p class="meta" data-i18n="about.reviewed"></p>
+      <button class="primary" value="close" data-i18n="sos.close">Close</button>
+    </form>
+  </dialog>
+
   <footer class="foot">
     <div class="settings">
       <div class="size" role="group" data-i18n-aria="set.size">
@@ -149,6 +166,7 @@
       <button class="ghost" id="install-btn" hidden data-i18n="set.install">Install app</button>
       <span id="app-status" role="status"></span>
     </div>
+    <p><button class="link" id="about-open" aria-haspopup="dialog" data-i18n="about.btn">How it decides, sources &amp; privacy</button></p>
     <p data-i18n="foot.1"></p>
     <p data-i18n="foot.2"></p>
   </footer>
