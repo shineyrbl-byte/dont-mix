@@ -1,7 +1,7 @@
 # Don't Mix 🧪
 
 **Check your cleaning products before you mix them or store them together.**
-Works offline. Nothing leaves your phone.
+English and हिन्दी. Works offline. Nothing leaves your phone.
 
 **Live demo:** https://shineyrbl-byte.github.io/dont-mix/
 
@@ -19,18 +19,24 @@ This is one of the most common accidental poisonings at home. It happens because
 
 - Bottles look similar, and brands don't say "acid" or "bleach" on the front.
 - "Stronger together" feels like common sense.
-- The warning, if there is one, is in tiny print on the back.
+- The warning, if there is one, is in tiny print on the back, often only in English.
 
-**Who it helps:** anyone who cleans a home, hostel, PG or small shop, especially people who are new to it (students living alone, new domestic workers, people helping elderly relatives).
+**Who it helps:** anyone who cleans a home, hostel, PG or small shop, especially people who are new to it (students living alone, new domestic workers, people helping elderly relatives) and people who don't read English labels.
 
 ## What it does
 
 | Feature | What the person can do more safely |
 |---|---|
-| **Check a mix** | Pick two or more products and get a clear verdict (⛔ Do not mix / ⚠️ Avoid / ❔ Not sure / ✅ No known reaction), the gas it makes, why, and the source. |
-| **Read a label** | Paste the text from the back of a bottle. It finds the hazardous ingredients and highlights the words it matched. It **skips warning lines** like "Do not mix with bleach" so they aren't mistaken for ingredients. |
-| **My cupboard** | List what's under the sink. It tells you which bottles shouldn't share a shelf (leaks can react) and which pairs must never be used back to back without rinsing. |
-| **Already mixed something?** | A one-tap emergency panel with first-aid steps and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
+| **Check a mix** | Pick two or more of 28 product types and get a clear verdict (⛔ Do not mix / ⚠️ Avoid / ❔ Not sure / ✅ No known reaction), the gas it makes, why, a **safer way to do the job**, the simplified reaction, how well documented it is, and the source. |
+| **Read a label** | Paste the text from the back of a bottle. It finds hazardous ingredients (English and Hindi names) and highlights the words it matched. It **skips warning text** like "Do not mix with bleach" so it isn't mistaken for an ingredient. |
+| **📷 Scan a label photo** | Take a photo of the bottle. Text recognition runs **in the browser**, so the photo is never uploaded. You can check and fix the text before it's read. |
+| **My cupboard** | List what's under the sink. It tells you which bottles shouldn't share a shelf (leaks can react), which pairs must never be used back to back, and gives storage basics. Saved only on this device. |
+| **🖨️ "Never mix" sticker** | Print a sticker for the inside of the cupboard door: the five always-dangerous pairs, the risky pairs in *your* cupboard, and emergency numbers. |
+| **Learn** | An 8-question quiz built from the same rules as the checker, so it can never disagree with the app. Every answer explains why. |
+| **🔗 Share / 🔊 Read aloud** | Send a check to family as a link (only product types are in the link, never label text). Hear the verdict read out in English or Hindi when your hands are busy. |
+| **Already mixed something?** | One tap opens first-aid steps and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
+| **English / हिन्दी** | Every screen, product, warning and safer-way tip is in both languages. |
+| **Settings** | Text size (A / A+ / A++), install as an app, "ready to use offline" indicator, higher contrast when the system asks for it. |
 
 ### Example of the safer outcome
 
@@ -38,62 +44,76 @@ This is one of the most common accidental poisonings at home. It happens because
 > Product B: liquid bleach.
 >
 > **Before:** the person pours both into the toilet bowl.
-> **With Don't Mix:** ⛔ *Do not mix: Acid makes bleach release chlorine gas quickly.* They use one, rinse, air the room, and use the other another day.
+> **With Don't Mix:** ⛔ *Do not mix: acid makes bleach release chlorine gas quickly.*
+> **Safer way:** *pick one toilet cleaner. If it isn't enough, flush several times, open the window, and use the other one another day.*
 
 ![Emergency panel](docs/emergency.jpg)
 
+![Label reader skipping the "do not mix" warning](docs/label-reader.jpg)
+
 ## Trust and responsible design
 
-- **No AI guessing.** Every verdict comes from a fixed, readable rule table ([`js/data.js`](js/data.js)), so the same input always gives the same answer.
+- **No AI guessing.** Every verdict comes from a fixed, readable rule table ([`js/data.js`](js/data.js)), so the same input always gives the same answer. The quiz is generated from the same table.
 - **Shows its confidence.** Each reaction is marked *well documented* or *expected from the chemistry, less household data*, with a source.
-- **Never says "safe" when it doesn't know.** Unrecognised labels and "not sure" products return ❔ *Not sure*, never ✅.
-- **Even ✅ is cautious.** "No known dangerous reaction" still says to use one at a time.
-- **Private by default.** No server, no accounts, no analytics. The cupboard list is saved only in your browser.
-- **Works offline.** A service worker caches the whole app, so it works in a basement bathroom with no signal.
-- **Accessible.** Keyboard and screen-reader friendly tabs, `aria-live` results, colour plus icon plus words for every level, light and dark themes, reduced-motion support.
+- **Never says "safe" when it doesn't know.** Unrecognised labels and "not sure" products return ❔ *Not sure*, never ✅. Even ✅ says to use one product at a time.
+- **Errs on the side of warning.** If a label says "Contains bleach, do not mix with acids", only the warning part is skipped, so the bleach is still found.
+- **Private by default.** No server, no accounts, no analytics. Photos are read on the device. The cupboard list stays in your browser. Share links contain only product types.
+- **Works offline.** A service worker caches the whole app. Photo scanning needs internet once to download the text reader, and is cached after that.
+- **Accessible.** Keyboard and screen-reader friendly tabs, results announced as they change, colour + icon + words for every level, text size control, light/dark and high-contrast support, read aloud.
 
 ## Limitations (what it can't do yet)
 
 - **It only knows common product types and ingredient names.** It can't recognise every brand, and a label with no chemical names returns *Not sure*.
-- **The label reader needs typed or pasted text.** There's no camera/OCR yet.
-- **It's about mixing and storage, not every hazard** of each product on its own (beyond a short tip).
+- **Photo scanning can misread** small, curved or blurry text, and is slower on old phones (around 15–20 seconds). People are asked to check the text.
+- **It covers mixing and storage**, not every hazard of each product on its own (beyond a short tip).
 - **Some reactions have less household-scale data** (for example bleach + phenolic disinfectants). These are marked as such and treated as unsafe.
+- **The Hindi text** was written with AI help and should be reviewed by a native speaker with a safety background.
 - **It is not medical advice.** In an emergency, call for help first.
 
 ## How it works
 
 ```
-index.html            page and emergency dialog
-js/data.js            hazard groups, reaction rules + sources, products, label keywords
-js/engine.js          pure logic: checkPair, checkAll, checkStorage, parseLabel
-js/mix.js             "Check a mix" tab
-js/label.js           "Read a label" tab
-js/cupboard.js        "My cupboard" tab (localStorage)
-sw.js                 offline cache
-tests/engine.test.js  18 tests for the rules and label parser
+index.html             page, tabs, emergency dialog
+js/data.js             hazard groups, reaction rules (+ equations, safer way, sources), products, label keywords
+js/data.hi.js          Hindi for all of the above
+js/i18n.js             UI strings in English and Hindi, language switch
+js/engine.js           pure logic: checkPair, checkAll, checkStorage, parseLabel, share links, quiz builder
+js/mix.js              "Check a mix" tab
+js/label.js            "Read a label" tab
+js/ocr.js              photo scan (Tesseract.js, loaded only when used)
+js/cupboard.js         "My cupboard" tab (localStorage)
+js/print.js            printable sticker
+js/quiz.js             "Learn" tab
+js/actions.js          share link and read aloud
+js/settings.js         text size, install, offline status, update notice
+sw.js                  offline cache
+tests/                 34 tests: rules, label parser, translations, offline cache list
 ```
 
 Each product belongs to one or more **hazard groups** (chlorine bleach, ammonia, strong acid, mild acid, caustic, peroxide, alcohol, phenolic, flammable…). Rules describe what happens when two groups meet. For products in several groups, the worst pairing wins.
 
 The label parser:
-1. Splits the text into sentences and drops warnings ("do not mix with…", "keep away from…").
-2. Removes negations ("bleach-free", "no ammonia").
-3. Matches whole words only, longest phrase first ("oxygen bleach" is peroxide, not chlorine; "polyethylene" doesn't match "lye").
+1. Rejoins lines that were wrapped mid-sentence (common in photo scans).
+2. Skips warning text from "do not mix…", "keep away from…" (or the whole clause in Hindi, where the verb comes last).
+3. Removes negations ("bleach-free", "no ammonia").
+4. Matches whole words only, longest phrase first, in any script ("oxygen bleach" is peroxide, not chlorine; "polyethylene" doesn't match "lye").
 
 ## Run it
 
-No build step and no dependencies.
+No build step. Nothing to install for the app itself.
 
 ```bash
 git clone https://github.com/shineyrbl-byte/dont-mix.git
 cd dont-mix
 python3 -m http.server 5173     # then open http://localhost:5173
-npm test                        # runs the 18 engine tests (Node 18+)
+npm test                        # 34 tests (Node 18+)
 ```
+
+To try photo scanning, use `tests/fixtures/sample-label.png`.
 
 ## Built during the hackathon
 
-Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2026). The commit history shows the step-by-step build. No pre-existing code, libraries or frameworks.
+Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2026). The commit history shows the step-by-step build. The only third-party code is Tesseract.js, loaded from a CDN when someone scans a photo.
 
 ## Sources and credits
 
@@ -101,12 +121,14 @@ Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2
 - [AIIMS New Delhi: National Poisons Information Centre](https://aiims.edu/index.php/en/npic_intro) (toll-free 1800 116 117, 24×7)
 - US Poison Help line: 1-800-222-1222
 - Other reactions (bleach + alcohol, peroxide + vinegar, acid + caustic) are standard chemistry and are labelled in the app with their confidence level.
-- **AI assistance:** built with help from Claude Code (Anthropic) for code and wording. All safety rules were reviewed and checked against the sources above.
+- [Tesseract.js](https://github.com/naptha/tesseract.js) 5.1.1 (Apache-2.0) for on-device text recognition.
+- **AI assistance:** built with help from Claude Code (Anthropic) for code, wording and Hindi translation. The safety rules were checked against the sources above.
 
 ## What I learned
 
 - The hardest part of a safety tool is saying "I don't know" clearly. An app that says "safe" when it isn't sure is worse than no app.
-- Label text is full of the chemical names a product *doesn't* contain ("do not mix with bleach"). Naive keyword matching gets this exactly backwards.
+- Label text is full of the chemical names a product *doesn't* contain ("do not mix with bleach"). Naive keyword matching gets this exactly backwards, and an over-eager fix can hide real ingredients.
+- Word order matters: Hindi puts the verb last, so the same warning rule needed different handling.
 
 ## License
 
