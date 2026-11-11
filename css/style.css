@@ -225,3 +225,9 @@ dialog::backdrop { background: rgb(0 0 0 / .55); }
   .sticker .call { margin: 6px 0; }
   .sticker .url { font-size: 10pt; color: #444; margin: 8px 0 0; }
 }
+
+/* Photo scan */
+.ocr { margin: 4px 0 8px; }
+.file-btn { display: inline-block; font-weight: 600; cursor: pointer; margin: 0; }
+#label-photo:focus-visible + .meta, .file-btn:focus-within { outline: 3px solid var(--focus); }
+#ocr-status:empty { display: none; }

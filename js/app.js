@@ -7,6 +7,7 @@ import "./cupboard.js";
 import "./actions.js";
 import "./quiz.js";
 import "./print.js";
+import "./ocr.js";
 
 // Translate the fixed text on the page.
 applyStatic();

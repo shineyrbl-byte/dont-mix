@@ -61,6 +61,12 @@
     <section id="panel-label" role="tabpanel" aria-labelledby="tab-label" hidden>
       <h2 data-i18n="label.h">Not sure what's in it?</h2>
       <p class="hint" data-i18n="label.hint"></p>
+      <div class="ocr">
+        <label class="ghost file-btn" for="label-photo" data-i18n="ocr.btn">Scan a photo of the label</label>
+        <input id="label-photo" type="file" accept="image/*" class="sr-only" />
+        <p class="meta" data-i18n="ocr.privacy"></p>
+        <p id="ocr-status" class="meta" role="status" aria-live="polite"></p>
+      </div>
       <label for="label-name" data-i18n="label.name">Product name (optional)</label>
       <input id="label-name" type="text" data-i18n-ph="label.name.ph" />
       <label for="label-text" data-i18n="label.text">Label text</label>

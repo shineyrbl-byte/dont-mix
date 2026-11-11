@@ -136,6 +136,13 @@ const S = {
   "print.p5": ["Acid + caustic drain cleaner → boiling splashes", "एसिड + कास्टिक ड्रेन क्लीनर → उबलते छींटे"],
   "print.rule": ["One product at a time. Rinse with water before the next.", "एक बार में एक प्रोडक्ट। अगला लगाने से पहले पानी से धोएँ।"],
   "print.mixed": ["Mixed by mistake? Leave the room, get fresh air, call:", "ग़लती से मिल गया? कमरे से निकलें, ताज़ी हवा में जाएँ, फ़ोन करें:"],
+  "ocr.btn": ["📷 Scan a photo of the label", "📷 लेबल की फ़ोटो स्कैन करें"],
+  "ocr.privacy": ["The photo is read on your device and never uploaded. The first scan downloads the text reader (a few MB); after that it works offline.", "फ़ोटो आपके डिवाइस पर ही पढ़ी जाती है, कहीं अपलोड नहीं होती। पहली बार स्कैन करने पर टेक्स्ट रीडर डाउनलोड होता है (कुछ MB); उसके बाद इंटरनेट के बिना भी चलता है।"],
+  "ocr.loading": ["Loading the text reader…", "टेक्स्ट रीडर लोड हो रहा है…"],
+  "ocr.reading": ["Reading the photo… {p}%", "फ़ोटो पढ़ी जा रही है… {p}%"],
+  "ocr.done": ["Done. Check the text below and fix anything it misread.", "हो गया। नीचे टेक्स्ट जाँचें और ग़लत पढ़ा हुआ ठीक कर दें।"],
+  "ocr.none": ["Couldn't find any text. Try a sharper, well-lit photo, or type the label.", "कोई टेक्स्ट नहीं मिला। साफ़ और रोशनी वाली फ़ोटो लें, या लेबल टाइप करें।"],
+  "ocr.fail": ["Couldn't load the text reader. The first scan needs internet. You can type the label instead.", "टेक्स्ट रीडर लोड नहीं हुआ। पहली बार स्कैन के लिए इंटरनेट चाहिए। आप लेबल टाइप भी कर सकते हैं।"],
   // @end
 };
 
