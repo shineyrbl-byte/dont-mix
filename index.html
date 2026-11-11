@@ -126,10 +126,23 @@
   </dialog>
 
   <footer class="foot">
+    <div class="settings">
+      <div class="size" role="group" data-i18n-aria="set.size">
+        <span data-i18n="set.size">Text size</span>
+        <span id="size-buttons" class="seg">
+          <button data-size="m" aria-label="A">A</button>
+          <button data-size="l" aria-label="A+">A+</button>
+          <button data-size="xl" aria-label="A++">A++</button>
+        </span>
+      </div>
+      <button class="ghost" id="install-btn" hidden data-i18n="set.install">Install app</button>
+      <span id="app-status" role="status"></span>
+    </div>
     <p data-i18n="foot.1"></p>
     <p data-i18n="foot.2"></p>
   </footer>
 
+  <div id="update-bar" class="update-bar" role="status" hidden></div>
   <div id="print-sheet" aria-hidden="true"></div>
 
   <script type="module" src="js/app.js"></script>

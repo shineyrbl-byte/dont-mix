@@ -8,6 +8,7 @@ import "./actions.js";
 import "./quiz.js";
 import "./print.js";
 import "./ocr.js";
+import "./settings.js";
 
 // Translate the fixed text on the page.
 applyStatic();
@@ -28,8 +29,3 @@ document.getElementById("sos-numbers").innerHTML = EMERGENCY.map(
   (n) => `<a href="tel:${n.number}"><span>${emergencyLabel(n)}</span><strong>📞 ${n.display ?? n.number}</strong></a>`,
 ).join("");
 document.getElementById("sos-open").addEventListener("click", () => sos.showModal());
-
-// Offline support. Fails quietly where service workers aren't allowed.
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").catch(() => {});
-}

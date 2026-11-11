@@ -231,3 +231,23 @@ dialog::backdrop { background: rgb(0 0 0 / .55); }
 .file-btn { display: inline-block; font-weight: 600; cursor: pointer; margin: 0; }
 #label-photo:focus-visible + .meta, .file-btn:focus-within { outline: 3px solid var(--focus); }
 #ocr-status:empty { display: none; }
+
+/* Settings, text size, update bar */
+html[data-size="l"] body { zoom: 1.15; }
+html[data-size="xl"] body { zoom: 1.3; }
+.settings { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 8px; }
+.size { display: flex; gap: 8px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.seg button { background: var(--card); color: var(--text); border: 0; padding: 4px 10px; }
+.seg button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); font-weight: 700; }
+#app-status { color: var(--info); }
+.update-bar {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; max-width: 560px; margin: 0 auto;
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 10px 14px; box-shadow: 0 6px 24px rgb(0 0 0 / .2);
+}
+.update-bar[hidden] { display: none; }
+@media (prefers-contrast: more) {
+  :root { --line: currentColor; --muted: var(--text); }
+}

@@ -143,6 +143,12 @@ const S = {
   "ocr.done": ["Done. Check the text below and fix anything it misread.", "हो गया। नीचे टेक्स्ट जाँचें और ग़लत पढ़ा हुआ ठीक कर दें।"],
   "ocr.none": ["Couldn't find any text. Try a sharper, well-lit photo, or type the label.", "कोई टेक्स्ट नहीं मिला। साफ़ और रोशनी वाली फ़ोटो लें, या लेबल टाइप करें।"],
   "ocr.fail": ["Couldn't load the text reader. The first scan needs internet. You can type the label instead.", "टेक्स्ट रीडर लोड नहीं हुआ। पहली बार स्कैन के लिए इंटरनेट चाहिए। आप लेबल टाइप भी कर सकते हैं।"],
+  "set.size": ["Text size", "अक्षरों का आकार"],
+  "set.install": ["📲 Install app", "📲 ऐप इंस्टॉल करें"],
+  "set.offline": ["✓ Ready to use offline", "✓ इंटरनेट के बिना इस्तेमाल के लिए तैयार"],
+  "set.offlineNow": ["You're offline. Everything except photo scanning still works.", "आप ऑफ़लाइन हैं। फ़ोटो स्कैन के अलावा सब कुछ चलता है।"],
+  "set.update": ["A new version is ready.", "नया वर्ज़न तैयार है।"],
+  "set.reload": ["Reload", "रीलोड करें"],
   // @end
 };
 
