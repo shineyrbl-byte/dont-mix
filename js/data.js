@@ -1,6 +1,5 @@
-// Safety data for Don't Mix.
-// Every product belongs to one or more hazard groups. Rules describe what
-// happens when two groups meet. Keep wording plain: the reader may be scared.
+// Safety data for Don't Mix (English). Hindi lives in data.hi.js, keyed by
+// the same ids. Keep wording plain: the reader may be scared.
 
 export const GROUPS = {
   hypochlorite: {
@@ -30,8 +29,8 @@ export const GROUPS = {
   },
   peroxide: {
     name: "Hydrogen peroxide",
-    label: "hydrogen peroxide",
-    tip: "Keep in its dark bottle, away from heat. Don't pour into other bottles.",
+    label: "hydrogen peroxide, oxygen bleach, sodium percarbonate",
+    tip: "Keep in its own container, away from heat. Don't pour into other bottles.",
   },
   alcohol: {
     name: "Alcohol",
@@ -45,8 +44,8 @@ export const GROUPS = {
   },
   flammable: {
     name: "Flammable fuel or solvent",
-    label: "kerosene, petrol, thinner, turpentine, acetone",
-    tip: "Store in its original sealed can, away from heat, sunlight and oxidisers.",
+    label: "kerosene, petrol, thinner, turpentine, acetone, aerosol propellant",
+    tip: "Store in its original sealed container, away from heat, sunlight and oxidisers.",
   },
   carbonate: {
     name: "Baking soda / washing soda",
@@ -74,14 +73,18 @@ export const LEVELS = {
 };
 
 // `confidence` says how well established the reaction is.
-//   "high"   - documented by poison centres / public health agencies
+//   "high"   - documented by public health agencies or basic chemistry
 //   "medium" - chemically expected, less data on household amounts
+// `eq` is the simplified main reaction. `instead` is the safer way to get
+// the job done.
 export const RULES = [
   {
     pair: ["hypochlorite", "ammonia"],
     level: "danger",
     gas: "Chloramine gas",
+    eq: "NaOCl + NH₃ → NH₂Cl + NaOH",
     what: "Bleach and ammonia react to make chloramine vapour. It causes coughing, chest pain, shortness of breath and fluid in the lungs, even in a small bathroom.",
+    instead: "Use the ammonia glass cleaner on glass only. Use bleach on a different day, or rinse the surface well with water first.",
     confidence: "high",
     source: "Washington State Dept. of Health",
   },
@@ -89,7 +92,9 @@ export const RULES = [
     pair: ["hypochlorite", "strongAcid"],
     level: "danger",
     gas: "Chlorine gas",
+    eq: "NaOCl + 2HCl → Cl₂ + NaCl + H₂O",
     what: "Acid makes bleach release chlorine gas quickly. This is the classic 'two toilet cleaners' accident. Chlorine burns the eyes, throat and lungs.",
+    instead: "Pick one toilet cleaner. If it isn't enough, flush several times to clear it, open the window, and use the other one another day.",
     confidence: "high",
     source: "Washington State Dept. of Health",
   },
@@ -97,7 +102,9 @@ export const RULES = [
     pair: ["hypochlorite", "weakAcid"],
     level: "danger",
     gas: "Chlorine gas",
+    eq: "HOCl + H⁺ + Cl⁻ → Cl₂ + H₂O",
     what: "Even vinegar or lemon makes bleach release chlorine gas. Less violent than a strong acid, but still harmful in a closed room.",
+    instead: "Use vinegar for limescale and bleach for disinfecting, on different days. Never add vinegar to a bleach solution 'to boost it'.",
     confidence: "high",
     source: "Washington State Dept. of Health",
   },
@@ -105,7 +112,9 @@ export const RULES = [
     pair: ["hypochlorite", "alcohol"],
     level: "danger",
     gas: "Chloroform and other chlorinated vapours",
+    eq: "Bleach + alcohol → CHCl₃ (chloroform) + other chlorinated compounds",
     what: "Bleach and alcohol (including sanitiser) form chloroform and related toxic vapours that can cause dizziness and harm the liver and lungs.",
+    instead: "Use either bleach solution or an alcohol spray to disinfect, not both. Let one dry completely and rinse before using the other.",
     confidence: "high",
     source: "Haloform reaction (general chemistry)",
   },
@@ -113,7 +122,9 @@ export const RULES = [
     pair: ["strongAcid", "strongBase"],
     level: "danger",
     gas: "Heat and boiling splashes",
+    eq: "HCl + NaOH → NaCl + H₂O + heat",
     what: "Acid and caustic drain or toilet cleaners react violently. The mix can boil and spit corrosive liquid out of a drain or bowl into your face.",
+    instead: "If one drain opener didn't work, don't add another. Use a plunger or call a plumber, and tell them what you already poured in.",
     confidence: "high",
     source: "Product safety data sheets (drain cleaners)",
   },
@@ -121,7 +132,9 @@ export const RULES = [
     pair: ["strongBase", "strongBase"],
     level: "warning",
     gas: "Heat and splashing",
+    eq: null,
     what: "Different drain openers use different chemicals. Pouring a second one on top of the first can heat up and splash back.",
+    instead: "Use one product as directed. If it fails, use a plunger or a drain snake instead of more chemicals.",
     confidence: "medium",
     source: "Drain cleaner label warnings",
   },
@@ -129,7 +142,9 @@ export const RULES = [
     pair: ["hypochlorite", "peroxide"],
     level: "warning",
     gas: "Rapid oxygen release",
+    eq: "NaOCl + H₂O₂ → NaCl + H₂O + O₂",
     what: "The mix fizzes hard and can spray bleach out of the container. It also destroys both cleaners, so it doesn't clean better.",
+    instead: "For stains, use oxygen bleach or chlorine bleach, not both. Rinse the fabric well between them.",
     confidence: "medium",
     source: "General chemistry; label warnings",
   },
@@ -137,7 +152,9 @@ export const RULES = [
     pair: ["peroxide", "weakAcid"],
     level: "warning",
     gas: "Peracetic acid",
+    eq: "CH₃COOH + H₂O₂ ⇌ CH₃COOOH + H₂O",
     what: "Hydrogen peroxide and vinegar form peracetic acid, which irritates eyes, skin and lungs. Use them one after another, not in the same bottle.",
+    instead: "Spray one, wipe, then spray the other if you need to. Never store them mixed in one bottle.",
     confidence: "medium",
     source: "Consumer Reports / general chemistry",
   },
@@ -145,7 +162,9 @@ export const RULES = [
     pair: ["hypochlorite", "phenolic"],
     level: "warning",
     gas: "Irritating chlorinated compounds",
+    eq: null,
     what: "Bleach can react with phenolic disinfectants to form chlorophenols, which smell strong and irritate. Household-scale data is limited, so treat it as unsafe.",
+    instead: "Mop with one disinfectant only. Both work on their own when diluted as the label says.",
     confidence: "medium",
     source: "General chemistry",
   },
@@ -153,7 +172,9 @@ export const RULES = [
     pair: ["strongAcid", "ammonia"],
     level: "warning",
     gas: "Heat and irritating fumes",
+    eq: "NH₃ + HCl → NH₄Cl + heat",
     what: "They neutralise each other and give off heat and sharp fumes. Not as dangerous as bleach mixes, but there is no reason to do it.",
+    instead: "Use the acid cleaner on tiles or the toilet, and the ammonia cleaner on glass. Rinse in between.",
     confidence: "medium",
     source: "General chemistry",
   },
@@ -161,7 +182,9 @@ export const RULES = [
     pair: ["weakAcid", "strongBase"],
     level: "warning",
     gas: "Heat",
+    eq: "CH₃COOH + NaOH → CH₃COONa + H₂O + heat",
     what: "Vinegar poured on caustic drain cleaner heats up and can splash caustic liquid.",
+    instead: "Don't use vinegar to 'finish off' a caustic drain cleaner. Flush with plenty of water instead.",
     confidence: "medium",
     source: "General chemistry",
   },
@@ -169,46 +192,44 @@ export const RULES = [
     pair: ["carbonate", "weakAcid"],
     level: "info",
     gas: "Carbon dioxide (harmless)",
+    eq: "NaHCO₃ + CH₃COOH → CH₃COONa + H₂O + CO₂",
     what: "Safe, but they cancel each other out. The fizz looks impressive and leaves mostly salty water. Use them separately for better cleaning.",
+    instead: "Baking soda paste scrubs grease; vinegar dissolves limescale. Use each for its own job.",
     confidence: "high",
     source: "General chemistry",
   },
 ];
 
+export const ruleKey = (pair) => pair.join("+");
+
 // Rules for keeping products in the same cupboard.
 export const STORAGE_RULES = [
-  {
-    pair: ["hypochlorite", "strongAcid"],
-    advice: "Keep bleach and acid cleaners on different shelves. A leak or a dripping cap can make chlorine gas inside the cupboard.",
-  },
-  {
-    pair: ["hypochlorite", "ammonia"],
-    advice: "Store bleach away from ammonia cleaners so drips can't meet.",
-  },
-  {
-    pair: ["strongAcid", "strongBase"],
-    advice: "Separate acid and caustic cleaners. If both leak they react with heat.",
-  },
-  {
-    pair: ["flammable", "peroxide"],
-    advice: "Keep fuels and solvents away from oxidisers like hydrogen peroxide.",
-  },
-  {
-    pair: ["flammable", "hypochlorite"],
-    advice: "Keep fuels and solvents away from bleach and other oxidisers.",
-  },
-  {
-    pair: ["alcohol", "hypochlorite"],
-    advice: "Don't keep sanitiser and bleach in the same caddy. A spill can mix them.",
-  },
+  { pair: ["hypochlorite", "strongAcid"], advice: "Keep bleach and acid cleaners on different shelves. A leak or a dripping cap can make chlorine gas inside the cupboard." },
+  { pair: ["hypochlorite", "weakAcid"], advice: "Keep vinegar and descalers away from bleach so a spill can't mix them." },
+  { pair: ["hypochlorite", "ammonia"], advice: "Store bleach away from ammonia cleaners so drips can't meet." },
+  { pair: ["strongAcid", "strongBase"], advice: "Separate acid and caustic cleaners. If both leak they react with heat." },
+  { pair: ["flammable", "peroxide"], advice: "Keep fuels and solvents away from oxidisers like hydrogen peroxide." },
+  { pair: ["flammable", "hypochlorite"], advice: "Keep fuels and solvents away from bleach and bleaching powder, which are oxidisers." },
+  { pair: ["alcohol", "hypochlorite"], advice: "Don't keep sanitiser and bleach in the same caddy. A spill can mix them." },
+];
+
+// Things that are true for every cupboard.
+export const STORAGE_BASICS = [
+  "Keep products in their original containers with the label on.",
+  "Never pour cleaners into water, soft-drink or food bottles.",
+  "Store up high or locked, out of children's reach.",
+  "Close caps fully after every use, and wipe drips off the bottle.",
+  "Keep away from heat, the stove and direct sunlight.",
 ];
 
 // Common household product types. Brands vary, so each says what to look
 // for on the label. `groups` can hold more than one group.
 export const PRODUCTS = [
   { id: "bleach", name: "Liquid bleach", hint: "Says 'sodium hypochlorite'", groups: ["hypochlorite"] },
+  { id: "bleaching-powder", name: "Bleaching powder / chlorine tablets", hint: "Says 'calcium hypochlorite'", groups: ["hypochlorite"] },
   { id: "toilet-bleach", name: "Toilet cleaner (bleach type)", hint: "Thick gel, says 'hypochlorite'", groups: ["hypochlorite"] },
   { id: "toilet-acid", name: "Toilet cleaner (acid type)", hint: "Says 'hydrochloric acid' or 'HCl'", groups: ["strongAcid"] },
+  { id: "toilet-unknown", name: "Toilet cleaner (not sure which type)", hint: "Haven't checked the label", groups: ["unknown"] },
   { id: "mould-spray", name: "Mould / mildew remover spray", hint: "Usually bleach based", groups: ["hypochlorite"] },
   { id: "glass-ammonia", name: "Glass cleaner with ammonia", hint: "Says 'ammonia' or 'ammonium hydroxide'", groups: ["ammonia"] },
   { id: "vinegar", name: "White vinegar", hint: "Acetic acid", groups: ["weakAcid"] },
@@ -216,25 +237,35 @@ export const PRODUCTS = [
   { id: "tile-acid", name: "Tile, grout or rust remover", hint: "Says 'acid'", groups: ["strongAcid"] },
   { id: "drain-caustic", name: "Drain opener (caustic)", hint: "Says 'sodium hydroxide' or 'caustic'", groups: ["strongBase"] },
   { id: "drain-acid", name: "Drain opener (acid)", hint: "Says 'sulfuric acid'", groups: ["strongAcid"] },
+  { id: "drain-enzyme", name: "Drain cleaner (enzyme / bacteria)", hint: "Says 'enzymes' or 'bacteria'", groups: ["mild"] },
   { id: "oven", name: "Oven / grill cleaner", hint: "Usually caustic", groups: ["strongBase"] },
   { id: "peroxide", name: "Hydrogen peroxide 3%", hint: "Brown bottle", groups: ["peroxide"] },
+  { id: "oxygen-bleach", name: "Oxygen bleach / stain remover powder", hint: "Says 'percarbonate'", groups: ["peroxide", "carbonate"] },
   { id: "sanitiser", name: "Hand sanitiser / rubbing alcohol", hint: "Isopropyl or ethanol", groups: ["alcohol"] },
+  { id: "spirit", name: "Methylated spirit / surgical spirit", hint: "Alcohol, also flammable", groups: ["alcohol", "flammable"] },
   { id: "phenyl", name: "Phenyl / phenolic floor disinfectant", hint: "Black or white phenyl", groups: ["phenolic"] },
   { id: "antiseptic", name: "Antiseptic liquid", hint: "Says 'chloroxylenol'", groups: ["phenolic"] },
   { id: "baking-soda", name: "Baking soda", hint: "Sodium bicarbonate", groups: ["carbonate"] },
+  { id: "washing-soda", name: "Washing soda", hint: "Sodium carbonate", groups: ["carbonate"] },
   { id: "dish-soap", name: "Dish soap / detergent", hint: "Plain soap", groups: ["mild"] },
+  { id: "laundry", name: "Laundry detergent / fabric softener", hint: "Powder or liquid", groups: ["mild"] },
   { id: "fuel", name: "Kerosene, petrol or paint thinner", hint: "Fuel or solvent", groups: ["flammable"] },
+  { id: "aerosol", name: "Insect spray / aerosol can", hint: "Flammable propellant", groups: ["flammable"] },
+  { id: "nail-remover", name: "Nail polish remover", hint: "Usually acetone", groups: ["flammable"] },
   { id: "floor-unknown", name: "Floor or surface cleaner (not sure)", hint: "Haven't read the label", groups: ["unknown"] },
 ];
 
 // Words to look for when someone pastes a label. Longer phrases first so
-// "hydrochloric acid" wins over plain "acid".
+// "hydrochloric acid" wins over plain "acid". Hindi words cover labels and
+// people typing in Hindi.
 export const KEYWORDS = [
   ["oxygen bleach", "peroxide"],
   ["sodium percarbonate", "peroxide"],
+  ["percarbonate", "peroxide"],
   ["sodium hypochlorite", "hypochlorite"],
   ["calcium hypochlorite", "hypochlorite"],
   ["hypochlorite", "hypochlorite"],
+  ["bleaching powder", "hypochlorite"],
   ["bleach", "hypochlorite"],
   ["available chlorine", "hypochlorite"],
   ["ammonium hydroxide", "ammonia"],
@@ -264,6 +295,7 @@ export const KEYWORDS = [
   ["ethanol", "alcohol"],
   ["ethyl alcohol", "alcohol"],
   ["denatured alcohol", "alcohol"],
+  ["methylated spirit", "alcohol"],
   ["chloroxylenol", "phenolic"],
   ["pcmx", "phenolic"],
   ["cresol", "phenolic"],
@@ -274,14 +306,38 @@ export const KEYWORDS = [
   ["turpentine", "flammable"],
   ["thinner", "flammable"],
   ["acetone", "flammable"],
+  ["butane", "flammable"],
+  ["propane", "flammable"],
+  ["extremely flammable", "flammable"],
   ["sodium bicarbonate", "carbonate"],
   ["sodium carbonate", "carbonate"],
   ["washing soda", "carbonate"],
   ["baking soda", "carbonate"],
+  // Hindi
+  ["ब्लीचिंग पाउडर", "hypochlorite"],
+  ["ब्लीच", "hypochlorite"],
+  ["हाइपोक्लोराइट", "hypochlorite"],
+  ["अमोनिया", "ammonia"],
+  ["हाइड्रोक्लोरिक", "strongAcid"],
+  ["तेज़ाब", "strongAcid"],
+  ["तेजाब", "strongAcid"],
+  ["सल्फ्यूरिक", "strongAcid"],
+  ["सिरका", "weakAcid"],
+  ["नींबू", "weakAcid"],
+  ["कास्टिक", "strongBase"],
+  ["हाइड्रोजन पेरोक्साइड", "peroxide"],
+  ["स्पिरिट", "alcohol"],
+  ["अल्कोहल", "alcohol"],
+  ["फिनाइल", "phenolic"],
+  ["मिट्टी का तेल", "flammable"],
+  ["केरोसिन", "flammable"],
+  ["पेट्रोल", "flammable"],
+  ["बेकिंग सोडा", "carbonate"],
+  ["खाने का सोडा", "carbonate"],
 ];
 
 export const EMERGENCY = [
-  { label: "India emergency", number: "112" },
-  { label: "India poison centre (NPIC, AIIMS Delhi, 24×7, toll-free)", number: "1800116117", display: "1800 116 117" },
-  { label: "US Poison Help", number: "18002221222", display: "1-800-222-1222" },
+  { id: "in112", label: "India emergency", number: "112" },
+  { id: "npic", label: "India poison centre (NPIC, AIIMS Delhi, 24×7, toll-free)", number: "1800116117", display: "1800 116 117" },
+  { id: "us", label: "US Poison Help", number: "18002221222", display: "1-800-222-1222" },
 ];
