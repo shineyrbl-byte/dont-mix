@@ -83,7 +83,7 @@ export const RULES = [
     gas: "Chloramine gas",
     what: "Bleach and ammonia react to make chloramine vapour. It causes coughing, chest pain, shortness of breath and fluid in the lungs, even in a small bathroom.",
     confidence: "high",
-    source: "US CDC / Washington State Dept. of Health",
+    source: "Washington State Dept. of Health",
   },
   {
     pair: ["hypochlorite", "strongAcid"],
@@ -91,7 +91,7 @@ export const RULES = [
     gas: "Chlorine gas",
     what: "Acid makes bleach release chlorine gas quickly. This is the classic 'two toilet cleaners' accident. Chlorine burns the eyes, throat and lungs.",
     confidence: "high",
-    source: "US CDC / NPIC AIIMS case reports",
+    source: "Washington State Dept. of Health",
   },
   {
     pair: ["hypochlorite", "weakAcid"],
@@ -107,7 +107,7 @@ export const RULES = [
     gas: "Chloroform and other chlorinated vapours",
     what: "Bleach and alcohol (including sanitiser) form chloroform and related toxic vapours that can cause dizziness and harm the liver and lungs.",
     confidence: "high",
-    source: "Washington State Dept. of Health",
+    source: "Haloform reaction (general chemistry)",
   },
   {
     pair: ["strongAcid", "strongBase"],
