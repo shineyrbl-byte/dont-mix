@@ -124,6 +124,18 @@ const S = {
   "quiz.great": ["Great. You know the big ones. Share the quiz with whoever else cleans at home.", "बहुत बढ़िया। आप मुख्य ख़तरे जानते हैं। घर में सफ़ाई करने वाले बाकी लोगों से भी यह क्विज़ शेयर करें।"],
   "quiz.ok2": ["Good start. The one to remember: bleach + acid (including vinegar) or ammonia makes toxic gas.", "अच्छी शुरुआत। याद रखने वाली बात: ब्लीच + एसिड (सिरका भी) या अमोनिया से ज़हरीली गैस बनती है।"],
   "quiz.again": ["Try again", "फिर से खेलें"],
+  "print.btn": ["🖨️ Print a \"Never mix\" sticker", "🖨️ \"कभी न मिलाएँ\" स्टिकर प्रिंट करें"],
+  "print.hint": ["Stick it inside the cupboard door. It includes your products if you've added any.", "इसे अलमारी के दरवाज़े के अंदर चिपकाएँ। अगर आपने प्रोडक्ट जोड़े हैं तो वे भी इसमें होंगे।"],
+  "print.title": ["NEVER MIX", "कभी न मिलाएँ"],
+  "print.always": ["Always dangerous", "हमेशा ख़तरनाक"],
+  "print.yours": ["In this cupboard", "इस अलमारी में"],
+  "print.p1": ["Bleach + acid toilet / tile cleaner → chlorine gas", "ब्लीच + एसिड वाला टॉयलेट / टाइल क्लीनर → क्लोरीन गैस"],
+  "print.p2": ["Bleach + vinegar or lemon → chlorine gas", "ब्लीच + सिरका या नींबू → क्लोरीन गैस"],
+  "print.p3": ["Bleach + ammonia glass cleaner → chloramine gas", "ब्लीच + अमोनिया ग्लास क्लीनर → क्लोरामाइन गैस"],
+  "print.p4": ["Bleach + sanitiser / spirit → chloroform", "ब्लीच + सैनिटाइज़र / स्पिरिट → क्लोरोफ़ॉर्म"],
+  "print.p5": ["Acid + caustic drain cleaner → boiling splashes", "एसिड + कास्टिक ड्रेन क्लीनर → उबलते छींटे"],
+  "print.rule": ["One product at a time. Rinse with water before the next.", "एक बार में एक प्रोडक्ट। अगला लगाने से पहले पानी से धोएँ।"],
+  "print.mixed": ["Mixed by mistake? Leave the room, get fresh air, call:", "ग़लती से मिल गया? कमरे से निकलें, ताज़ी हवा में जाएँ, फ़ोन करें:"],
   // @end
 };
 

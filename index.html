@@ -83,6 +83,10 @@
       </div>
       <ul id="cup-list" class="cup-list"></ul>
       <div id="cup-result" class="result" aria-live="polite"></div>
+      <div class="print-box">
+        <button class="ghost" id="print-btn" data-i18n="print.btn">Print a "Never mix" sticker</button>
+        <p class="meta" data-i18n="print.hint"></p>
+      </div>
       <details class="basics">
         <summary data-i18n="cup.basics.h">Storage basics for every home</summary>
         <ul id="cup-basics"></ul>
@@ -119,6 +123,8 @@
     <p data-i18n="foot.1"></p>
     <p data-i18n="foot.2"></p>
   </footer>
+
+  <div id="print-sheet" aria-hidden="true"></div>
 
   <script type="module" src="js/app.js"></script>
 </body>
