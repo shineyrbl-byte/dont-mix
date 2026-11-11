@@ -1,6 +1,6 @@
 // Cache every app file so it works with no signal (e.g. a basement bathroom).
 // Bump VERSION whenever files change, so people get the update.
-const VERSION = "v3";
+const VERSION = "v4";
 const CACHE = `dont-mix-${VERSION}`;
 const FILES = [
   "./",
@@ -41,8 +41,12 @@ self.addEventListener("activate", (e) => {
 // engine (from the CDN) is cached after first use so scanning works offline.
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET" || !e.request.url.startsWith("http")) return;
+  // Same-origin files are revalidated with the server every time (a cheap 304
+  // when unchanged), so an update never runs a stale copy from the HTTP cache.
+  const sameOrigin = e.request.url.startsWith(self.location.origin);
+  const req = sameOrigin && e.request.mode !== "navigate" ? fetch(e.request.url, { cache: "no-cache" }) : fetch(e.request);
   e.respondWith(
-    fetch(e.request)
+    req
       .then((res) => {
         if (res.ok || res.type === "opaque") {
           const copy = res.clone();
