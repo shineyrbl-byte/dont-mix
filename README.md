@@ -30,11 +30,12 @@ This is one of the most common accidental poisonings at home. It happens because
 | **Check a mix** | Pick two or more of 28 product types and get a clear verdict (⛔ Do not mix / ⚠️ Avoid / ❔ Not sure / ✅ No known reaction), the gas it makes, why, a **safer way to do the job**, the simplified reaction, how well documented it is, and the source. |
 | **Read a label** | Paste the text from the back of a bottle. It finds hazardous ingredients (English and Hindi names) and highlights the words it matched. It **skips warning text** like "Do not mix with bleach" so it isn't mistaken for an ingredient. |
 | **📷 Scan a label photo** | Take a photo of the bottle. Text recognition runs **in the browser**, so the photo is never uploaded. You can check and fix the text before it's read. |
-| **My cupboard** | List what's under the sink. It tells you which bottles shouldn't share a shelf (leaks can react), which pairs must never be used back to back, and gives storage basics. Saved only on this device. |
-| **🖨️ "Never mix" sticker** | Print a sticker for the inside of the cupboard door: the five always-dangerous pairs, the risky pairs in *your* cupboard, and emergency numbers. |
+| **My cupboard** | List what's under the sink, including products saved from a label. It tells you which bottles shouldn't share a shelf (leaks can react), which pairs must never be used back to back, and gives storage basics. Saved only on this device. **Share the list** with family or flatmates; opening a shared list always asks before changing yours. |
+| **🖨️ "Never mix" sticker** | Print a sticker for the inside of the cupboard door: the five always-dangerous pairs, the risky pairs in *your* cupboard, emergency numbers, and a QR code that opens the app. |
 | **Learn** | An 8-question quiz built from the same rules as the checker, so it can never disagree with the app. Every answer explains why. |
 | **🔗 Share / 🔊 Read aloud** | Send a check to family as a link (only product types are in the link, never label text). Hear the verdict read out in English or Hindi when your hands are busy. |
-| **Already mixed something?** | One tap opens first-aid steps and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
+| **Already mixed something?** | One tap opens first-aid steps for fumes, swallowing and eye splashes (including "call for a child even if they seem fine"), and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
+| **How it decides** | An in-app page with the full rule table (result, confidence, source for every reaction), privacy, limitations, and a link to report mistakes. |
 | **English / हिन्दी** | Every screen, product, warning and safer-way tip is in both languages. |
 | **Settings** | Text size (A / A+ / A++), install as an app, "ready to use offline" indicator, higher contrast when the system asks for it. |
 
@@ -54,6 +55,7 @@ This is one of the most common accidental poisonings at home. It happens because
 ## Trust and responsible design
 
 - **No AI guessing.** Every verdict comes from a fixed, readable rule table ([`js/data.js`](js/data.js)), so the same input always gives the same answer. The quiz is generated from the same table.
+- **Fully inspectable.** The "How it decides" page lists every rule with its source.
 - **Shows its confidence.** Each reaction is marked *well documented* or *expected from the chemistry, less household data*, with a source.
 - **Never says "safe" when it doesn't know.** Unrecognised labels and "not sure" products return ❔ *Not sure*, never ✅. Even ✅ says to use one product at a time.
 - **Errs on the side of warning.** If a label says "Contains bleach, do not mix with acids", only the warning part is skipped, so the bleach is still found.
@@ -86,8 +88,9 @@ js/print.js            printable sticker
 js/quiz.js             "Learn" tab
 js/actions.js          share link and read aloud
 js/settings.js         text size, install, offline status, update notice
+js/about.js            "How it decides" page
 sw.js                  offline cache
-tests/                 34 tests: rules, label parser, translations, offline cache list
+tests/                 35 tests: rules, label parser, translations, share links, offline cache list
 ```
 
 Each product belongs to one or more **hazard groups** (chlorine bleach, ammonia, strong acid, mild acid, caustic, peroxide, alcohol, phenolic, flammable…). Rules describe what happens when two groups meet. For products in several groups, the worst pairing wins.
@@ -106,14 +109,14 @@ No build step. Nothing to install for the app itself.
 git clone https://github.com/shineyrbl-byte/dont-mix.git
 cd dont-mix
 python3 -m http.server 5173     # then open http://localhost:5173
-npm test                        # 34 tests (Node 18+)
+npm test                        # 35 tests (Node 18+)
 ```
 
 To try photo scanning, use `tests/fixtures/sample-label.png`.
 
 ## Built during the hackathon
 
-Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2026). The commit history shows the step-by-step build. The only third-party code is Tesseract.js, loaded from a CDN when someone scans a photo.
+Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2026). The commit history shows the step-by-step build. The only third-party code is Tesseract.js (loaded when someone scans a photo) and qrcode-generator (loaded when printing the sticker), both from a CDN and pinned to exact versions.
 
 ## Sources and credits
 
@@ -122,6 +125,8 @@ Everything in this repo was written during SafeSpace Hacks (Oct 17 – Nov 22, 2
 - US Poison Help line: 1-800-222-1222
 - Other reactions (bleach + alcohol, peroxide + vinegar, acid + caustic) are standard chemistry and are labelled in the app with their confidence level.
 - [Tesseract.js](https://github.com/naptha/tesseract.js) 5.1.1 (Apache-2.0) for on-device text recognition.
+- [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 (MIT) for the sticker's QR code.
+- First-aid wording for swallowing and eye splashes follows standard poison-centre advice (don't induce vomiting; rinse eyes for 15 minutes).
 - **AI assistance:** built with help from Claude Code (Anthropic) for code, wording and Hindi translation. The safety rules were checked against the sources above.
 
 ## What I learned
