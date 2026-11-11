@@ -34,10 +34,10 @@ This is one of the most common accidental poisonings at home. It happens because
 | **🖨️ "Never mix" sticker** | Print a sticker for the inside of the cupboard door: the five always-dangerous pairs, the risky pairs in *your* cupboard, emergency numbers, and a QR code that opens the app. |
 | **Learn** | An 8-question quiz built from the same rules as the checker, so it can never disagree with the app. Every answer explains why. |
 | **🔗 Share / 🔊 Read aloud** | Send a check to family as a link (only product types are in the link, never label text). Hear the verdict read out in English or Hindi when your hands are busy. |
-| **Already mixed something?** | One tap opens first-aid steps for fumes, swallowing and eye splashes (including "call for a child even if they seem fine"), and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
+| **Already mixed something?** | One tap opens a ready-made line to read to the poison centre (what was mixed and what it may give off), first-aid steps for fumes, swallowing and eye splashes (including "call for a child even if they seem fine"), and tap-to-call numbers: 112, the **AIIMS National Poisons Information Centre (1800 116 117)** and US Poison Help. |
 | **How it decides** | An in-app page with the full rule table (result, confidence, source for every reaction), privacy, limitations, and a link to report mistakes. |
 | **English / हिन्दी** | Every screen, product, warning and safer-way tip is in both languages. |
-| **Settings** | Text size (A / A+ / A++), install as an app, "ready to use offline" indicator, higher contrast when the system asks for it. |
+| **Settings** | Text size (A / A+ / A++), Auto / Light / Dark theme, install as an app, "ready to use offline" indicator, higher contrast when the system asks for it, and **Delete my data** (two taps) to clear everything the app stored on the device. |
 
 ### Example of the safer outcome
 
@@ -59,7 +59,7 @@ This is one of the most common accidental poisonings at home. It happens because
 - **Shows its confidence.** Each reaction is marked *well documented* or *expected from the chemistry, less household data*, with a source.
 - **Never says "safe" when it doesn't know.** Unrecognised labels and "not sure" products return ❔ *Not sure*, never ✅. Even ✅ says to use one product at a time.
 - **Errs on the side of warning.** If a label says "Contains bleach, do not mix with acids", only the warning part is skipped, so the bleach is still found.
-- **Private by default.** No server, no accounts, no analytics. Photos are read on the device. The cupboard list stays in your browser. Share links contain only product types.
+- **Private by default.** No server, no accounts, no analytics. Nothing is stored until you use a feature, and "Delete my data" clears it all. Photos are read on the device. The cupboard list stays in your browser. Share links contain only product types.
 - **Works offline.** A service worker caches the whole app. Photo scanning needs internet once to download the text reader, and is cached after that.
 - **Accessible.** Keyboard and screen-reader friendly tabs, results announced as they change, colour + icon + words for every level, text size control, light/dark and high-contrast support, read aloud.
 
