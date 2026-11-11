@@ -34,6 +34,7 @@
     <button role="tab" id="tab-mix" aria-controls="panel-mix" aria-selected="true" data-i18n="tab.mix">Check a mix</button>
     <button role="tab" id="tab-label" aria-controls="panel-label" aria-selected="false" tabindex="-1" data-i18n="tab.label">Read a label</button>
     <button role="tab" id="tab-cupboard" aria-controls="panel-cupboard" aria-selected="false" tabindex="-1" data-i18n="tab.cupboard">My cupboard</button>
+    <button role="tab" id="tab-learn" aria-controls="panel-learn" aria-selected="false" tabindex="-1" data-i18n="tab.learn">Learn</button>
   </nav>
 
   <main id="main">
@@ -86,6 +87,15 @@
         <summary data-i18n="cup.basics.h">Storage basics for every home</summary>
         <ul id="cup-basics"></ul>
       </details>
+    </section>
+
+    <!-- Learn -->
+    <section id="panel-learn" role="tabpanel" aria-labelledby="tab-learn" hidden>
+      <h2 data-i18n="quiz.h">Can you spot the dangerous pairs?</h2>
+      <p class="hint" data-i18n="quiz.hint"></p>
+      <div id="quiz">
+        <button class="primary" id="quiz-start" data-i18n="quiz.start">Start quiz</button>
+      </div>
     </section>
   </main>
 

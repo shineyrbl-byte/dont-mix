@@ -195,3 +195,11 @@ dialog::backdrop { background: rgb(0 0 0 / .55); }
 
 .basics { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; }
 .basics summary { cursor: pointer; font-weight: 600; }
+
+/* Quiz */
+.quiz-pair { font-size: 20px; margin: 0 0 4px; }
+.primary.alt { background: var(--info); }
+.primary:disabled { opacity: .5; cursor: default; }
+.quiz-mark { font-weight: 800; font-size: 20px; margin: 14px 0 8px; }
+.quiz-mark.good { color: var(--info); }
+.quiz-mark.bad { color: var(--danger); }

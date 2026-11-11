@@ -108,6 +108,22 @@ const S = {
   "act.shareText": ["Don't Mix check: {verdict}: {items}", "Don't Mix जाँच: {verdict}: {items}"],
   "act.speak": ["Read aloud", "सुनें"],
   "act.stop": ["Stop", "रोकें"],
+  "tab.learn": ["Learn", "सीखें"],
+  "quiz.h": ["Can you spot the dangerous pairs?", "क्या आप ख़तरनाक जोड़ियाँ पहचान सकते हैं?"],
+  "quiz.hint": ["8 quick questions. Each answer explains why, so you remember it next time you clean.", "8 छोटे सवाल। हर जवाब के साथ वजह बताई जाती है, ताकि अगली सफ़ाई में याद रहे।"],
+  "quiz.start": ["Start quiz", "क्विज़ शुरू करें"],
+  "quiz.progress": ["Question {n} of {total}", "सवाल {n} / {total}"],
+  "quiz.q": ["Is it OK to use these together?", "क्या इन्हें साथ इस्तेमाल करना ठीक है?"],
+  "quiz.no": ["⛔ Don't mix", "⛔ न मिलाएँ"],
+  "quiz.ok": ["✅ No known danger", "✅ कोई ज्ञात ख़तरा नहीं"],
+  "quiz.right": ["Right!", "सही!"],
+  "quiz.wrong": ["Not quite.", "सही नहीं।"],
+  "quiz.next": ["Next question →", "अगला सवाल →"],
+  "quiz.finish": ["See my score →", "मेरा स्कोर देखें →"],
+  "quiz.score": ["You got {score} out of {total}", "आपके {total} में से {score} सही"],
+  "quiz.great": ["Great. You know the big ones. Share the quiz with whoever else cleans at home.", "बहुत बढ़िया। आप मुख्य ख़तरे जानते हैं। घर में सफ़ाई करने वाले बाकी लोगों से भी यह क्विज़ शेयर करें।"],
+  "quiz.ok2": ["Good start. The one to remember: bleach + acid (including vinegar) or ammonia makes toxic gas.", "अच्छी शुरुआत। याद रखने वाली बात: ब्लीच + एसिड (सिरका भी) या अमोनिया से ज़हरीली गैस बनती है।"],
+  "quiz.again": ["Try again", "फिर से खेलें"],
   // @end
 };
 
