@@ -2,6 +2,7 @@ import { EMERGENCY } from "./data.js";
 import "./tabs.js";
 import "./mix.js";
 import "./label.js";
+import "./cupboard.js";
 
 // Emergency panel.
 const sos = document.getElementById("sos");
