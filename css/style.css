@@ -257,3 +257,6 @@ html[data-size="xl"] body { zoom: 1.3; }
   .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .tabs button { padding: 10px 6px; }
 }
+
+.sos-sub { font-size: 17px; margin: 14px 0 4px; }
+ul.steps { padding-left: 20px; }

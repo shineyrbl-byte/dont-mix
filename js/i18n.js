@@ -149,6 +149,10 @@ const S = {
   "set.offlineNow": ["You're offline. Everything except photo scanning still works.", "आप ऑफ़लाइन हैं। फ़ोटो स्कैन के अलावा सब कुछ चलता है।"],
   "set.update": ["A new version is ready.", "नया वर्ज़न तैयार है।"],
   "set.reload": ["Reload", "रीलोड करें"],
+  "sos.other.h": ["Swallowed or splashed?", "निगल लिया या छींटे पड़े?"],
+  "sos.swallow": ["<strong>Swallowed:</strong> don't make them vomit. Rinse the mouth with water and spit it out. Call the poison centre now, with the bottle in your hand.", "<strong>निगल लिया:</strong> उल्टी न करवाएँ। मुँह में पानी लेकर कुल्ला करवाएँ और थूकने दें। बोतल हाथ में लेकर अभी ज़हर सूचना केंद्र को फ़ोन करें।"],
+  "sos.eyes": ["<strong>In the eyes:</strong> hold the eye open under gently running water for 15 minutes. Take out contact lenses if it's easy.", "<strong>आँखों में:</strong> आँख खोलकर 15 मिनट तक धीरे बहते पानी के नीचे रखें। कॉन्टैक्ट लेंस आसानी से निकलें तो निकाल दें।"],
+  "sos.child": ["<strong>A child might have swallowed a cleaner?</strong> Call even if they seem fine. Some burns and symptoms show up later.", "<strong>बच्चे ने क्लीनर निगल लिया हो सकता है?</strong> वह ठीक लगे तब भी फ़ोन करें। कुछ जलन और लक्षण बाद में दिखते हैं।"],
   // @end
 };
 
